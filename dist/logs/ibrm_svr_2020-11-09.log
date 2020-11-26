@@ -1,0 +1,188 @@
+2020-11-09 09:21:59,299 INFO [ibrm_server_daemon_socket.py:366] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 13:30:39,996 INFO [ibrm_server_daemon_socket.py:313] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 15:46:12,506 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '343'
+2020-11-09 15:46:51,210 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '343'
+2020-11-09 15:47:26,799 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:47:45,240 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:48:03,763 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:48:20,207 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:48:35,374 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:48:52,127 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:49:08,654 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:49:24,138 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:49:46,085 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:49:57,605 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:50:20,168 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:50:28,648 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:50:50,122 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:50:58,700 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:51:22,829 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:51:33,322 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:52:13,059 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:52:23,301 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:53:00,119 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:53:12,453 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:54:04,312 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:54:12,654 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:55:18,845 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:55:18,851 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:56:27,834 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:56:27,836 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:57:24,805 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:57:24,813 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:58:08,845 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:58:08,867 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:58:44,219 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:58:44,223 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:59:23,161 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:59:23,168 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:59:52,250 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 15:59:52,269 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:00:25,506 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:00:25,507 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:01:02,591 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:01:02,608 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:01:34,096 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:01:34,114 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:02:12,801 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:02:12,822 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:02:34,549 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:02:34,555 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:03:00,457 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:03:00,474 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:03:10,967 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:03:11,029 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:03:21,471 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:03:21,503 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:03:32,099 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:03:32,188 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:03:45,911 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:03:45,914 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:03:58,181 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:04:08,846 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:04:19,529 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:04:29,980 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:04:40,286 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:04:50,569 INFO [ibrm_server_daemon_socket.py:105] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 16:20:06,480 INFO [ibrm_server_daemon_socket.py:313] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 17:04:15,107 INFO [ibrm_server_daemon_socket.py:319] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 17:04:54,364 INFO [ibrm_server_daemon_socket.py:319] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 17:06:03,440 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 17:17:26,634 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 17:18:00,592 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 17:18:41,282 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 17:18:59,259 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 17:19:31,279 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 17:19:49,927 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 18:03:35,969 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 18:04:28,595 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 18:05:05,030 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 18:06:50,115 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 18:13:24,022 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 18:13:43,694 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 18:14:27,786 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:14:50,993 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 18:14:54,273 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:15:20,121 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 18:15:38,161 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:16:15,255 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:16:49,165 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:17:25,967 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:18:00,351 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:18:37,257 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:19:08,141 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:19:37,757 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:20:10,022 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:20:42,056 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:21:13,878 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:21:45,801 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:22:18,658 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:22:49,312 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:23:20,263 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:23:52,900 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:24:19,525 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:24:52,783 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:25:08,217 INFO [ibrm_server_daemon_socket.py:321] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 18:25:22,888 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:25:59,177 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:26:31,098 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:27:00,328 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:27:14,937 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:27:30,390 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:27:31,783 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:27:52,226 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:27:54,601 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:28:25,565 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:28:31,318 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:29:09,624 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:29:13,176 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:29:51,234 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:29:58,617 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:30:25,545 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:30:35,631 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:31:01,072 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:31:13,075 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:31:38,447 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:31:46,170 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:32:11,752 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:32:18,575 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:32:42,943 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:33:10,197 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:33:24,857 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:33:40,701 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:34:07,632 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:34:17,345 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:34:40,282 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:34:44,437 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:34:49,953 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:35:12,816 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:35:15,368 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:35:20,042 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:35:34,529 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:35:36,957 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:35:41,849 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:35:57,703 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:36:02,506 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:36:05,086 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:36:14,276 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:36:19,095 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:36:27,783 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:36:38,611 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:36:49,247 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:37:02,836 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:37:06,063 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:37:23,927 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:37:46,092 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:37:48,812 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:38:06,354 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:38:31,148 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:38:31,151 INFO [ibrm_server_daemon_socket.py:111] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '359'
+2020-11-09 18:38:58,673 INFO [ibrm_server_daemon_socket.py:323] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 18:55:03,099 INFO [ibrm_server_daemon_socket.py:260] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 19:26:48,305 INFO [ibrm_server_daemon_socket.py:260] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 19:59:47,500 INFO [ibrm_server_daemon_socket.py:198] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:01:11,700 INFO [ibrm_server_daemon_socket.py:200] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:02:14,930 INFO [ibrm_server_daemon_socket.py:200] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:02:49,812 INFO [ibrm_server_daemon_socket.py:200] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:03:59,115 INFO [ibrm_server_daemon_socket.py:199] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:04:30,979 INFO [ibrm_server_daemon_socket.py:199] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:05:03,229 INFO [ibrm_server_daemon_socket.py:199] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:05:59,246 INFO [ibrm_server_daemon_socket.py:199] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:07:43,404 INFO [ibrm_server_daemon_socket.py:199] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:09:05,283 INFO [ibrm_server_daemon_socket.py:199] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:43:42,471 INFO [ibrm_server_daemon_socket.py:201] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:51:02,467 INFO [ibrm_server_daemon_socket.py:201] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:52:03,967 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:52:47,726 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:53:37,589 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 20:54:45,743 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 21:06:45,114 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 21:07:46,924 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 21:12:00,920 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 21:13:00,983 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 21:13:47,917 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 21:14:31,147 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 21:16:28,858 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 21:17:07,450 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 21:17:42,288 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002
+2020-11-09 21:18:06,892 INFO [ibrm_server_daemon_socket.py:202] - ibrm_daemon start 121.170.193.221 53002

@@ -1,0 +1,42 @@
+# echo "If you want to create a clone image from local backup snapshot. Press [L] "
+# echo "If you want to create a clone image form replicated backup snapshot. Press [R] "
+# echo -n "Enter your choice ( "L" or "R" ) : "
+#     read input
+#          input=`echo $input | tr '[a-z]' '[A-Z]'`
+#          if [ "$input" = L ]
+#               then
+	echo ""
+	echo "=========================================================================="
+	echo -n "Input Data Snapshot Name for CloneDB : "
+	read snapdata
+
+	echo -n "Please enter [y] to continue : "
+  	read yesno
+             yesno=`echo $yesno | tr '[a-z]' '[A-Z]'`
+    	      if [ "$yesno" = Y ]
+      		then
+
+		i=1
+		while [ $i -le $DSHARE_NO ]
+		do
+        		ZFS="\${ZFSDIR}/clone.sh \${LOGINSTRING_${i}} \${POOLNAME_${i}} \${PROJNAME} \${SHARE_DATA_${i}} $snapdata \${SHARE_CLONE_DATA_${i}} " ; echo $ZFS | sh
+        	i=$(( $i + 1 ))
+		done
+      		else
+        	echo "Request is canceled"
+	      fi
+
+	echo "=========================================================================="
+#             else
+#            	if [ "$input" = R ]
+#                then
+#                echo "=========================================================================="
+#                echo "List of replicated Data Snapshot [ SOURCE PROJECT: ${SPROJNAME} ]"
+#                     ${ZFSDIR}/clone_replica.sh ${RLOGINSTRING_1} ${SOURCENAME_1} ${PKGNAME_1} ${SPROJNAME} ${SDATANAME_1} |grep -v " login:"|grep -v ".rr-"
+#                echo "**************************************************************************"
+#                echo "List of Archive Log Backup Snapshot "
+#                     ${ZFSDIR}/clone_replica.sh ${RLOGINSTRING_1} ${SOURCENAME_1} ${PKGNAME_1} ${SPROJNAME} ${SARCHNAME_1} |grep -v " login:"|grep -v ".rr-"
+#                echo "=========================================================================="
+#
+#             fi
+#        fi

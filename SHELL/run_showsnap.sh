@@ -1,0 +1,10 @@
+echo "======================================================================="
+echo "RMAN FULL Backup Snapshot List [ PROJECT:${PROJNAME} ] "
+${ZFSDIR}/show_snap.sh ${LOGINSTRING_1} ${POOLNAME_1} ${PROJNAME} ${SHARE_DATA_1} |grep -v "login:"
+echo ""
+echo "********************************************************************"
+echo "Archive Log Backup Snapshot List [ PROJECT:${PROJNAME} ]"
+${ZFSDIR}/show_snap.sh ${LOGINSTRING_1} ${POOLNAME_1} ${PROJNAME} ${SHARE_ARCH_1} |grep -v "login:"
+echo ""
+echo "======================================================================="
+

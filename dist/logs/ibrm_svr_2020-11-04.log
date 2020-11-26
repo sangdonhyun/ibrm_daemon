@@ -1,0 +1,286 @@
+2020-11-04 19:08:56,296 INFO [ibrm_server_daemon_socket.py:363] - ibrm_daemon start 121.170.193.221 53002
+2020-11-04 19:09:14,697 INFO [ibrm_server_daemon_socket.py:363] - ibrm_daemon start 121.170.193.221 53002
+2020-11-04 19:09:28,805 INFO [ibrm_server_daemon_socket.py:363] - ibrm_daemon start 121.170.193.221 53002
+2020-11-04 19:09:38,279 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:09:38,280 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:09:38,453 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104190922'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:09:38,454 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104190922'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:10:09,404 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:10:09,431 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:10:09,563 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104190957'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:10:09,582 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104190957'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:10:12,500 INFO [ibrm_server_daemon_socket.py:363] - ibrm_daemon start 121.170.193.221 53002
+2020-11-04 19:10:43,944 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:10:43,944 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:10:44,111 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191027'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:10:44,115 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191027'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:11:18,361 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:11:18,385 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:11:18,512 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191101'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:11:18,542 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191101'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:11:53,915 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:11:53,917 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:11:54,092 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191137'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:11:54,096 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191137'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:12:27,997 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:12:27,997 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:12:28,178 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191212'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:12:28,181 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191212'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:13:00,282 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:13:00,283 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:13:00,447 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191244'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:13:00,450 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191244'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:13:33,901 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:13:33,911 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:13:34,063 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191319'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:13:34,065 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191319'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:14:08,674 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:14:08,680 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:14:08,825 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191352'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:14:08,829 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191352'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:14:37,940 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:14:37,940 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:14:38,114 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191426'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:14:38,115 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191426'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:15:14,108 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:15:14,117 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:15:14,256 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191456'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:15:14,269 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191456'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:15:44,654 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:15:44,654 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:15:44,826 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191531'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:15:44,829 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191531'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:16:14,596 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:16:14,596 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:16:14,779 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191603'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:16:14,779 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191603'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:16:45,457 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:16:45,461 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:16:45,634 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191632'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:16:45,637 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191632'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:17:18,227 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:17:18,242 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:17:18,371 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191704'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:17:18,388 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191704'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:17:49,094 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:17:49,115 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:17:49,244 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191737'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:17:49,250 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191737'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:18:18,664 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:18:18,677 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:18:18,821 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191806'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:18:18,822 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191806'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:18:48,556 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:18:48,556 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:18:48,730 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191836'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:18:48,733 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191836'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:19:22,214 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:19:22,219 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:19:22,385 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191906'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:19:22,387 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104191906'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:19:49,516 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:19:49,538 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:19:49,671 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191940'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:19:49,688 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104191940'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:20:10,681 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:20:10,684 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:20:10,851 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104192005'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:20:10,854 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104192005'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:20:21,293 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:20:21,312 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:20:21,448 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104192022'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:20:21,476 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104192022'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:20:31,828 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:20:31,849 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:20:31,983 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104192025'
+	    WHERE tg_job_mst_id= '16'
+	    
+2020-11-04 19:20:32,000 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104185853', 
+            job_end_dt='20201104192025'
+	    WHERE tg_job_mst_id= '17'
+	    
+2020-11-04 19:20:42,247 INFO [ibrm_server_daemon_socket.py:155] - SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '303'
+2020-11-04 19:20:42,398 INFO [ibrm_server_daemon_socket.py:139] - UPDATE store.hs_job_mst
+            SET job_stt_dt='20201104190612', 
+            job_end_dt='20201104192036'
+	    WHERE tg_job_mst_id= '17'
+	    

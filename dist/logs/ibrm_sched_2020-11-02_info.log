@@ -1,0 +1,2 @@
+2020-11-02 21:10:57,717 INFO [job_scheduler.py:167] - JOB START
+2020-11-02 21:10:57,717 INFO [job_scheduler.py:168] - {'job_id': 3, 'shell_name': 'IBRM_Incr_Level0.sh', 'shell_path': '/u01/SCRIPTS/Database/IBRM/RMAN/SCHEDULE', 'tg_job_dtl_id': 9, 'job_yn': 'Y', 'db_name': 'IBRM', 'ora_sid': 'ibrm', 'tg_job_mst_id': 13, 'job_exec_time': '1519', 'job_exec_dt': '20201023', 'svr_ip': '121.170.193.200', 'ora_home': '/u01/app/oracle/product/18.0.0/dbhome_1', 'shell_type': 'INCR'}
