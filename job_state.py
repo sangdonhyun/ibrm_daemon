@@ -11,7 +11,7 @@ class ibrm_job_stat():
     def __init__(self):
         self.dbms=ibrm_dbms.fbrm_db()
         self.cfg = self.get_cfg()
-        self.log = ibrm_logger.ibrm_logger().logger('ibrm_server_job_status')
+        # self.log = ibrm_logger.ibrm_logger().logger('ibrm_server_job_status')
 
 
 
@@ -66,10 +66,12 @@ class ibrm_job_stat():
             if len(ret_set) > 0:
                 hs_job_dtl_id = ret_set[0][0]
                 hs_job_mst_id = ret_set[0][1]
-        except:
+        except Exception as e:
+            print query
+            print str(e)
 
-            self.log.error('hs_job_dtl_id error')
-            self.log.error('job_id :{}'.format(job_id))
+            # self.log.error('hs_job_dtl_id error')
+            # self.log.error('job_id :{}'.format(job_id))
 
         return hs_job_dtl_id,hs_job_mst_id
 
@@ -156,7 +158,11 @@ class ibrm_job_stat():
         data_set['adtnl_itm_1'] = ''
         data_set['adtnl_itm_2'] = ''
         data_set['run_spd'] = job_status['write_bps']
-        data_set['prgrs_time'] = job_status['elapsed_seconds']
+        if job_status['elapsed_seconds'] == '':
+            prgs_time = 0
+        else:
+            prgs_time = int(job_status['elapsed_seconds'])
+        data_set['prgrs_time'] = prgs_time
         data_set['rm_bk_stat'] = job_status['status']
         data_set['bk_in_size'] = job_status['input_bytes']
         data_set['memo'] = ''
@@ -168,14 +174,26 @@ class ibrm_job_stat():
         data_list = []
         data_list.append(data_set)
         db_table = 'store.hs_job_log'
-        self.dbms.dbInsertList(data_list, db_table)
+        try:
+            self.dbms.dbInsertList(data_list, db_table)
+        except Exception as e:
+            print str(e)
 
 
 
-        print job_status['start_time']
-        print job_status['end_time']
-        start_time = datetime.datetime.strptime(job_status['start_time'],'%Y-%m-%d %H:%M:%S').strftime('%Y%m%d%H%M%S')
-        end_time = datetime.datetime.strptime(job_status['end_time'],'%Y-%m-%d %H:%M:%S').strftime('%Y%m%d%H%M%S')
+
+        print 'start_time :',job_status['start_time']
+        print 'end_time :',job_status['end_time']
+        try:
+            start_time = datetime.datetime.strptime(job_status['start_time'],'%Y-%m-%d %H:%M:%S').strftime('%Y%m%d%H%M%S')
+        except Exception as e:
+            start_time = ''
+            print str(e)
+        try:
+            end_time = datetime.datetime.strptime(job_status['end_time'],'%Y-%m-%d %H:%M:%S').strftime('%Y%m%d%H%M%S')
+        except Exception as e:
+            end_time = ''
+            print str(e)
         print 'start time :',start_time,end_time
         query = """UPDATE store.HS_JOB_DTL
         SET 
@@ -189,7 +207,7 @@ class ibrm_job_stat():
         WHERE hs_job_dtl_id = '{MST_ID}';
                     """.format(JOB_STT_DT=start_time,
                                JOB_END_DT=end_time,
-                               PRGRS_TIME=job_status['elapsed_seconds'],
+                               PRGRS_TIME=prgs_time,
                                MOD_DT=self.now_datetime,
                                RM_BK_STAT=job_status['status'],
                                JOB_STAT=job_status['job_st'],

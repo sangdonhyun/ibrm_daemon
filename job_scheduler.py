@@ -7,14 +7,15 @@ import ConfigParser
 import time
 import ibrm_logger
 import job_state
-
+import psutil
+log = ibrm_logger.ibrm_logger().logger('ibrm_server_sched')
 
 class sched():
     def __init__(self):
         self.db = ibrm_dbms.fbrm_db()
         self.cfg = self.get_cfg()
         self.job_prc = job_state.ibrm_job_stat()
-        self.log = ibrm_logger.ibrm_logger().logger('ibrm_server_sched')
+
 
     def already_past_job(self):
         dt = datetime.datetime.now()-datetime.timedelta(minutes=5)
@@ -322,8 +323,8 @@ WHERE
         ss = ibrm_daemon_send.SocketSender(HOST, PORT)
         self.job_prc.job_start_setup(job_info)
         ss.jos_excute(job_info)
-        self.log.info('submit job')
-        self.log.info(str(job_info))
+        log.info('submit job')
+        log.info(str(job_info))
 
     def check_date(self,exec_time):
         now = datetime.datetime.now()
@@ -366,7 +367,7 @@ WHERE
 
 
     def main(self):
-        self.log.info('log test')
+
         job_list= self.get_job()
         # print job_list
         now = datetime.datetime.now()
@@ -415,10 +416,16 @@ if __name__=='__main__':
         print '='*50
         try:
             sched().main()
-        except:
-            pass
-        print datetime.datetime.now()
+        except Exception as e:
+            print str(e)
 
+        print datetime.datetime.now()
+        msg = "memory size :" + str(dict(psutil.virtual_memory()._asdict())['percent'])
+        print msg
+        try:
+            log.info(msg)
+        except Exception as e:
+            print str(e)
         time.sleep(30)
 
     # sched().already_past_job()

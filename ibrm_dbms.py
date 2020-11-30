@@ -19,6 +19,7 @@ class fbrm_db():
         self.conn_string = self.getConnStr()
         self.cfg = self.getCfg()
 
+
     def getCfg(self):
         cfg = ConfigParser.RawConfigParser()
         cfgFile = os.path.join('config','config.cfg')
@@ -71,7 +72,43 @@ class fbrm_db():
     
     def getHistMonth(self):
         return self.com.getNow('%Y%m%d')
-    
+
+
+    def pool_select(self,query):
+        try:
+            postgreSQL_pool = psycopg2.pool.SimpleConnectionPool(1, 20, self.conn_string)
+            if (postgreSQL_pool):
+                print("Connection pool created successfully")
+
+            # Use getconn() to Get Connection from connection pool
+            ps_connection = postgreSQL_pool.getconn()
+
+            if (ps_connection):
+                print("successfully recived connection from connection pool ")
+                ps_cursor = ps_connection.cursor()
+                ps_cursor.execute(query)
+                records = ps_cursor.fetchall()
+
+
+                for row in records:
+                    print (row)
+
+                ps_cursor.close()
+
+                # Use this method to release the connection object and send back to connection pool
+                postgreSQL_pool.putconn(ps_connection)
+
+
+        except (Exception, psycopg2.DatabaseError) as error:
+            print ("Error while connecting to PostgreSQL", error)
+
+        finally:
+            # closing database connection.
+            # use closeall method to close all the active connection if you want to turn of the application
+            if (postgreSQL_pool):
+                postgreSQL_pool.closeall
+            print("PostgreSQL connection pool is closed")
+
     def queryExec(self,query):
         con = None
         try:
@@ -365,7 +402,8 @@ class fbrm_db():
             db.close()
             
             return rows
-        except:
+        except Exception as e:
+            print str(e)
             return []
     
     def insMany(self,insList,table):
@@ -428,7 +466,7 @@ class fbrm_db():
             print uid,cluster_name
 
 if __name__ == '__main__':
-
+    query = 'select name from ps_tables'
     print fbrm_db().store_pool()
     
     
