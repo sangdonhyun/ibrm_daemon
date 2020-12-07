@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import os
 import ibrm_dbms
 import datetime
@@ -7,20 +7,19 @@ import ibrm_logger
 import ConfigParser
 import logging
 
+
 class ibrm_job_stat():
     def __init__(self):
-        self.dbms=ibrm_dbms.fbrm_db()
+        self.dbms = ibrm_dbms.fbrm_db()
         self.cfg = self.get_cfg()
         # self.log = ibrm_logger.ibrm_logger().logger('ibrm_server_job_status')
 
-
-
-
     def get_cfg(self):
         cfg = ConfigParser.RawConfigParser()
-        cfg_file = os.path.join('config','config.cfg')
+        cfg_file = os.path.join('config', 'config.cfg')
         cfg.read(cfg_file)
         return cfg
+
     def set_date(self):
         self.now = datetime.datetime.now()
         self.today_str = datetime.datetime.now().strftime('%Y%m%d')
@@ -56,10 +55,11 @@ class ibrm_job_stat():
 
 
         """
-    def get_hs_id(self,job_id):
+
+    def get_hs_id(self, job_id):
         query = "SELECT  hs_job_dtl_id,hs_job_mst_id  FROM STORE.HS_JOB_DTL WHERE JOB_ID ='{JOB_ID}' and job_exec_dt='{EXEC_DT}'".format(
             JOB_ID=job_id, EXEC_DT=self.today_str)
-        hs_job_dtl_id,hs_job_mst_id='',''
+        hs_job_dtl_id, hs_job_mst_id = '', ''
 
         try:
             ret_set = self.dbms.getRaw(query)
@@ -67,32 +67,31 @@ class ibrm_job_stat():
                 hs_job_dtl_id = ret_set[0][0]
                 hs_job_mst_id = ret_set[0][1]
         except Exception as e:
-            print query
             print str(e)
 
             # self.log.error('hs_job_dtl_id error')
             # self.log.error('job_id :{}'.format(job_id))
 
-        return hs_job_dtl_id,hs_job_mst_id
+        return hs_job_dtl_id, hs_job_mst_id
 
-
-    def job_complete(self,job_info):
+    def job_complete(self, job_info):
         self.set_date()
         job_id = job_info['job_id']
         self.job_update(job_info)
 
-    def job_start_setup(self,job_info):
+    def job_start_setup(self, job_info):
         self.set_date()
-        job_id=job_info['job_id']
+        job_id = job_info['job_id']
         tg_job_dtl_id, tg_job_mst_id = self.get_tg_id(job_id)
 
-
-
         table_name = 'store.hs_job_mst'
-        query = "select count(*) from {} where tg_job_mst_id = '{}' and job_exec_dt = '{}'".format(table_name,tg_job_mst_id,job_info['job_exec_dt'])
+        query = "select count(*) from {} where tg_job_mst_id = '{}' and job_exec_dt = '{}'".format(table_name,
+                                                                                                   tg_job_mst_id,
+                                                                                                   job_info[
+                                                                                                       'job_exec_dt'])
         print query
         mst_cnt = self.dbms.getRaw(query)[0][0]
-        print 'mst cnt :',mst_cnt,type(mst_cnt),mst_cnt == 0
+        print 'mst cnt :', mst_cnt, type(mst_cnt), mst_cnt == 0
         if mst_cnt == 0:
             set_job = {}
             set_job['tg_job_mst_id'] = job_info['tg_job_mst_id']
@@ -111,9 +110,9 @@ class ibrm_job_stat():
 
             self.dbms.dbInsertList(job_list, table_name)
 
-
-        query ="select hs_job_mst_id from store.hs_job_mst where tg_job_mst_id ='{}' and job_exec_dt = '{}'".format(tg_job_mst_id,self.today_str)
-        hs_job_mst_id =  self.dbms.getRaw(query)[0][0]
+        query = "select hs_job_mst_id from store.hs_job_mst where tg_job_mst_id ='{}' and job_exec_dt = '{}'".format(
+            tg_job_mst_id, self.today_str)
+        hs_job_mst_id = self.dbms.getRaw(query)[0][0]
         set_job = {}
         set_job['tg_job_mst_id'] = job_info['tg_job_mst_id']
         set_job['hs_job_mst_id'] = hs_job_mst_id
@@ -136,12 +135,11 @@ class ibrm_job_stat():
         set_job
         self.dbms.dbInsertList(job_list, table_name)
 
-    def job_status_insert(self,job_status):
+    def job_status_insert(self, job_status):
         self.set_date()
 
         tg_job_dtl_id = job_status['tg_job_dtl_id']
-        print 'tg_job_dtl_id',tg_job_dtl_id
-
+        print 'tg_job_dtl_id', tg_job_dtl_id
 
         query = "SELECT hs_job_dtl_id, hs_job_mst_id, tg_job_mst_id	FROM store.hs_job_dtl where tg_job_dtl_id = '{TG_JOB_DTL_ID}'".format(
             TG_JOB_DTL_ID=tg_job_dtl_id)
@@ -158,11 +156,7 @@ class ibrm_job_stat():
         data_set['adtnl_itm_1'] = ''
         data_set['adtnl_itm_2'] = ''
         data_set['run_spd'] = job_status['write_bps']
-        if job_status['elapsed_seconds'] == '':
-            prgs_time = 0
-        else:
-            prgs_time = int(job_status['elapsed_seconds'])
-        data_set['prgrs_time'] = prgs_time
+        data_set['prgrs_time'] = job_status['elapsed_seconds']
         data_set['rm_bk_stat'] = job_status['status']
         data_set['bk_in_size'] = job_status['input_bytes']
         data_set['memo'] = ''
@@ -174,27 +168,13 @@ class ibrm_job_stat():
         data_list = []
         data_list.append(data_set)
         db_table = 'store.hs_job_log'
-        try:
-            self.dbms.dbInsertList(data_list, db_table)
-        except Exception as e:
-            print str(e)
+        self.dbms.dbInsertList(data_list, db_table)
 
-
-
-
-        print 'start_time :',job_status['start_time']
-        print 'end_time :',job_status['end_time']
-        try:
-            start_time = datetime.datetime.strptime(job_status['start_time'],'%Y-%m-%d %H:%M:%S').strftime('%Y%m%d%H%M%S')
-        except Exception as e:
-            start_time = ''
-            print str(e)
-        try:
-            end_time = datetime.datetime.strptime(job_status['end_time'],'%Y-%m-%d %H:%M:%S').strftime('%Y%m%d%H%M%S')
-        except Exception as e:
-            end_time = ''
-            print str(e)
-        print 'start time :',start_time,end_time
+        print job_status['start_time']
+        print job_status['end_time']
+        start_time = datetime.datetime.strptime(job_status['start_time'], '%Y-%m-%d %H:%M:%S').strftime('%Y%m%d%H%M%S')
+        end_time = datetime.datetime.strptime(job_status['end_time'], '%Y-%m-%d %H:%M:%S').strftime('%Y%m%d%H%M%S')
+        print 'start time :', start_time, end_time
         query = """UPDATE store.HS_JOB_DTL
         SET 
         job_stt_dt='{JOB_STT_DT}', 
@@ -207,98 +187,92 @@ class ibrm_job_stat():
         WHERE hs_job_dtl_id = '{MST_ID}';
                     """.format(JOB_STT_DT=start_time,
                                JOB_END_DT=end_time,
-                               PRGRS_TIME=prgs_time,
+                               PRGRS_TIME=job_status['elapsed_seconds'],
                                MOD_DT=self.now_datetime,
                                RM_BK_STAT=job_status['status'],
                                JOB_STAT=job_status['job_st'],
                                MST_ID=hs_job_dtl_id)
-        print '#'*50
+        print '#' * 50
         print query
-        print '#'*50
+        print '#' * 50
         self.dbms.queryExec(query)
 
-
-
     def job_log_update(self, log_return_data):
-            self.set_date()
-            print 'LOG_UPDATE 33333'
-            print log_return_data['job_id']
-            job_id = log_return_data['job_id']
-            tg_job_dtl_id = log_return_data['tg_job_dtl_id']
-            print 'tg_job_dtl_id :',tg_job_dtl_id
-            query = "SELECT hs_job_dtl_id, hs_job_mst_id, tg_job_mst_id	FROM store.hs_job_dtl where tg_job_dtl_id = '{TG_JOB_DTL_ID}'".format(
-                TG_JOB_DTL_ID=tg_job_dtl_id)
-            print 'qeury :',query
-            ret_set = self.dbms.getRaw(query)[0]
-            hs_job_dtl_id = ret_set[0]
-            hs_job_mst_id = ret_set[1]
-            tg_job_mst_id = ret_set[2]
+        self.set_date()
+        print 'LOG_UPDATE 33333'
+        print log_return_data['job_id']
+        job_id = log_return_data['job_id']
+        tg_job_dtl_id = log_return_data['tg_job_dtl_id']
+        print 'tg_job_dtl_id :', tg_job_dtl_id
+        query = "SELECT hs_job_dtl_id, hs_job_mst_id, tg_job_mst_id	FROM store.hs_job_dtl where tg_job_dtl_id = '{TG_JOB_DTL_ID}'".format(
+            TG_JOB_DTL_ID=tg_job_dtl_id)
+        print 'qeury :', query
+        ret_set = self.dbms.getRaw(query)[0]
+        hs_job_dtl_id = ret_set[0]
+        hs_job_mst_id = ret_set[1]
+        tg_job_mst_id = ret_set[2]
 
+        query = "SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '{}'".format(
+            hs_job_mst_id)
+        print query
 
+        cnt_set = self.dbms.getRaw(query)
+        cnt = cnt_set[0][0]
+        if int(cnt) == 0:
+            ins_bit = True
+        else:
+            ins_bit = False
+        print 'INS BIT :', ins_bit
+        print log_return_data['log_contents']
+        log_file = os.path.basename(log_return_data['log_contents'])
+        print log_file
+        print 'sections :', self.cfg.sections()
+        print 'options :', self.cfg.options('common')
+        log_path = self.cfg.get('common', 'log_file_path')
 
-            query = "SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '{}'".format(
-                hs_job_mst_id)
-            print query
+        # log_path = os.path.join('E:\\','Fleta','data','ibrm_backup_log',log_file)
+        log_path = os.path.join(log_path, log_file)
+        print 'log path :', log_path, os.path.isfile(log_path)
+        if os.path.isfile(log_path):
+            with open(log_path) as f:
+                log_content = f.read()
+            log_content = log_content.replace("'", '`')
+        else:
+            log_content = 'NOT FOUND'
 
-            cnt_set = self.dbms.getRaw(query)
-            cnt = cnt_set[0][0]
-            if int(cnt) == 0:
-                ins_bit = True
-            else:
-                ins_bit = False
-            print 'INS BIT :', ins_bit
-            print log_return_data['log_contents']
-            log_file = os.path.basename(log_return_data['log_contents'])
-            print log_file
-            print 'sections :',self.cfg.sections()
-            print 'options :', self.cfg.options('common')
-            log_path = self.cfg.get('common', 'log_file_path')
-
-            # log_path = os.path.join('E:\\','Fleta','data','ibrm_backup_log',log_file)
-            log_path = os.path.join(log_path, log_file)
-            print 'log path :',log_path,os.path.isfile(log_path)
-            if os.path.isfile(log_path):
-                with open(log_path) as f:
-                    log_content = f.read()
-                log_content = log_content.replace("'", '`')
-            else:
-                log_content = 'NOT FOUND'
-
-
-
-            if ins_bit:
-                log_data = {}
-                log_data['hs_job_dtl_id'] = hs_job_dtl_id
-                log_data['hs_job_mst_id'] = hs_job_mst_id
-                log_data['pid'] = log_return_data['pid']
-                log_data['logfile_nm'] = log_return_data['log_file']
-                log_data['file_cntn'] = log_content
-                log_data['rm_bk_stat'] = log_return_data['status']
-                log_data['prgrs_time'] = log_return_data['elapsed_seconds']
-                log_data['use_yn'] = 'Y'
-                log_data['memo'] = ''
-                log_data['mod_usr'] = ''
-                log_data['mod_dt'] = ''
-                log_data['reg_usr'] = 'SYS'
-                log_data['reg_dt'] = self.now_datetime
-                print log_data
-                log_update_list = []
-                log_update_list.append(log_data)
-                table_name = 'store.hs_job_logfile'
-                print log_data
-                self.dbms.dbInsertList(log_update_list, table_name)
-            else:
-                reg_date = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
-                query = """UPDATE store.hs_job_logfile
+        if ins_bit:
+            log_data = {}
+            log_data['hs_job_dtl_id'] = hs_job_dtl_id
+            log_data['hs_job_mst_id'] = hs_job_mst_id
+            log_data['pid'] = log_return_data['pid']
+            log_data['logfile_nm'] = log_return_data['log_file']
+            log_data['file_cntn'] = log_content
+            log_data['rm_bk_stat'] = log_return_data['status']
+            log_data['prgrs_time'] = log_return_data['elapsed_seconds']
+            log_data['use_yn'] = 'Y'
+            log_data['memo'] = ''
+            log_data['mod_usr'] = ''
+            log_data['mod_dt'] = ''
+            log_data['reg_usr'] = 'SYS'
+            log_data['reg_dt'] = self.now_datetime
+            print log_data
+            log_update_list = []
+            log_update_list.append(log_data)
+            table_name = 'store.hs_job_logfile'
+            print log_data
+            self.dbms.dbInsertList(log_update_list, table_name)
+        else:
+            reg_date = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+            query = """UPDATE store.hs_job_logfile
     	SET file_cntn='{LOG_CONTENT}', rm_bk_stat='{JOB_ST}', prgrs_time='{ELAPSED_SEC}', mod_dt='{MOD_DT}'
     	WHERE hs_job_mst_id = '{MST_ID}';
                 """.format(LOG_CONTENT=log_content, JOB_ST=log_return_data['status'],
                            ELAPSED_SEC=log_return_data['elapsed_seconds'], MOD_DT=reg_date, MST_ID=hs_job_mst_id)
-                print query
-                self.dbms.queryExec(query)
+            print query
+            self.dbms.queryExec(query)
 
     def get_job(self):
-            sql = """
+        sql = """
     SELECT 
       tjm.tg_job_mst_id  -- 0[일작업ID] 일일 대상 작업 MST ID   
       ,tjm.job_exec_dt   -- 1[작업실행일자] DB 일자 or SYSTEM   
@@ -357,41 +331,40 @@ class ibrm_job_stat():
 
     and tjd.job_id  = 13
     """
-            print sql
-            ret = self.dbms.getRaw(sql)[0]
+        print sql
+        ret = self.dbms.getRaw(sql)[0]
 
-            job_id = ret[0]
-            svr_ip = ret[8]
+        job_id = ret[0]
+        svr_ip = ret[8]
 
-            shell_type = ret[10]
-            shell_name = ret[11]
-            shell_path = ret[12]
-            ora_home = ret[14]
-            ora_sid = ret[13]
-            db_name = ret[15]
-            job_info = {}
-            job_info['job_id'] = job_id
-            job_info['svr_ip'] = svr_ip
-            job_info['shell_type'] = shell_type
-            job_info['shell_name'] = shell_name
-            job_info['shell_path'] = shell_path
-            job_info['ora_home'] = ora_home
-            job_info['db_name'] = db_name
-            job_info['ora_sid'] = ora_sid
-            job_info['tg_job_mst_id'] = ret[16]
-            job_info['job_exec_dt'] = ret[17]
-            job_info['tg_job_dtl_id'] = ret[18]
-            job_info['job_id'] = ret[19]
-            job_info['job_exec_dt'] = ret[1]
+        shell_type = ret[10]
+        shell_name = ret[11]
+        shell_path = ret[12]
+        ora_home = ret[14]
+        ora_sid = ret[13]
+        db_name = ret[15]
+        job_info = {}
+        job_info['job_id'] = job_id
+        job_info['svr_ip'] = svr_ip
+        job_info['shell_type'] = shell_type
+        job_info['shell_name'] = shell_name
+        job_info['shell_path'] = shell_path
+        job_info['ora_home'] = ora_home
+        job_info['db_name'] = db_name
+        job_info['ora_sid'] = ora_sid
+        job_info['tg_job_mst_id'] = ret[16]
+        job_info['job_exec_dt'] = ret[17]
+        job_info['tg_job_dtl_id'] = ret[18]
+        job_info['job_id'] = ret[19]
+        job_info['job_exec_dt'] = ret[1]
 
-            return job_info
+        return job_info
 
-
-    def get_tg_id(self,job_id):
+    def get_tg_id(self, job_id):
         now = datetime.datetime.now()
         today_str = datetime.datetime.now().strftime('%Y%m%d')
         now_datetime = now.strftime('%Y%m%d%H%M%S')
-        tg_job_dtl_id, tg_job_mst_id = '',''
+        tg_job_dtl_id, tg_job_mst_id = '', ''
         query = """SELECT
                 tg_job_dtl_id, tg_job_mst_id
                 FROM
@@ -408,7 +381,7 @@ class ibrm_job_stat():
         except:
             pass
 
-        return tg_job_dtl_id,tg_job_mst_id
+        return tg_job_dtl_id, tg_job_mst_id
 
         # job_info = {}
         # job_info['hs_job_dtl_id'] = hs_job_dtl_id
@@ -428,8 +401,7 @@ class ibrm_job_stat():
         # table_name = 'store.hs_job_log'
         # self.dbms.dbInsertList(job_info_list, table_name)
 
-
-    def get_job_id(self,tg_job_dtl_id):
+    def get_job_id(self, tg_job_dtl_id):
         self.set_date()
 
         query = "SELECT hs_job_dtl_id, hs_job_mst_id, tg_job_mst_id	FROM store.hs_job_dtl where tg_job_dtl_id = '{TG_JOB_DTL_ID}'".format(
@@ -439,36 +411,35 @@ class ibrm_job_stat():
         hs_job_dtl_id = ret_set[0]
         hs_job_mst_id = ret_set[1]
         tg_job_mst_id = ret_set[2]
-        job_id={}
+        job_id = {}
         job_id['hs_job_dtl_id'] = hs_job_dtl_id
         job_id['hs_job_mst_id'] = hs_job_mst_id
         job_id['tg_job_mst_id'] = tg_job_mst_id
         return job_id
 
-    def job_submit_fila(self,job_id,tg_job_dtl_id,memo):
-        memo = memo.replace("'","`")
+    def job_submit_fila(self, job_id, tg_job_dtl_id, memo):
+        memo = memo.replace("'", "`")
         self.set_date()
 
-        query = "SELECT hs_job_dtl_id, hs_job_mst_id, tg_job_mst_id	FROM store.hs_job_dtl where tg_job_dtl_id = '{TG_JOB_DTL_ID}'".format(TG_JOB_DTL_ID=tg_job_dtl_id)
+        query = "SELECT hs_job_dtl_id, hs_job_mst_id, tg_job_mst_id	FROM store.hs_job_dtl where tg_job_dtl_id = '{TG_JOB_DTL_ID}'".format(
+            TG_JOB_DTL_ID=tg_job_dtl_id)
         print query
         ret_set = self.dbms.getRaw(query)[0]
         hs_job_dtl_id = ret_set[0]
         hs_job_mst_id = ret_set[1]
         tg_job_mst_id = ret_set[2]
 
-
-        print hs_job_dtl_id,hs_job_mst_id,tg_job_mst_id
-
+        print hs_job_dtl_id, hs_job_mst_id, tg_job_mst_id
 
         query = """UPDATE store.hs_job_dtl SET
-                
+
                 job_stat ='Fail', 
                 rm_bk_stat ='Run Fail', 
                 memo = '{memo}',
                 mod_dt ='{MOD_DT}'
 
                 WHERE hs_job_dtl_id = '{HS_JOB_DTL_ID}'
-        """.format(memo=memo,MOD_DT=self.today_str,HS_JOB_DTL_ID=hs_job_dtl_id)
+        """.format(memo=memo, MOD_DT=self.today_str, HS_JOB_DTL_ID=hs_job_dtl_id)
         print query
         self.dbms.queryExec(query)
 
@@ -492,13 +463,14 @@ class ibrm_job_stat():
         ret_data = {'FLETA_PASS': 'kes2719!', 'CMD': 'JOB_UPDATE_SUCC', 'ARG': {'result': 'succ'}}
         return ret_data
 
-    def job_aleady_exist(self,job_id,tg_job_dtl_id,memo):
+    def job_aleady_exist(self, job_id, tg_job_dtl_id, memo):
         memo = memo.replace("'", "`")
 
-        now_str=datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+        now_str = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
         print now_str
 
-        query="""UPDATE store.hs_job_dtl SET job_stat='Fail', memo='{}',mod_dt='{}' WHERE tg_job_dtl_id = '{}' """.format(memo,now_str,tg_job_dtl_id)
+        query = """UPDATE store.hs_job_dtl SET job_stat='Fail', memo='{}',mod_dt='{}' WHERE tg_job_dtl_id = '{}' """.format(
+            memo, now_str, tg_job_dtl_id)
         print query
         self.dbms.queryExec(query)
 
@@ -535,26 +507,24 @@ class ibrm_job_stat():
         #
         # self.dbms.dbInsertList(job_info_list, table_name)
 
-
-
-
-    def job_fail_proc(self,job_id,memo):
+    def job_fail_proc(self, job_id, memo):
         memo = memo.replace("'", "`")
         self.set_date()
-        tg_job_dtl_id,tg_job_mst_id = self.get_tg_id(job_id)
+        tg_job_dtl_id, tg_job_mst_id = self.get_tg_id(job_id)
 
         table_name = 'store.hs_job_mst'
-        #memo='This job is already running'
+        # memo='This job is already running'
         """
         tg_job_mst_id, job_exec_dt, use_yn, mod_usr, mod_dt, reg_usr, ret_dt
         """
-        query = "select count(tg_job_mst_id) from store.tg_job_mst where tg_job_mst_id='{TG_JOB_MST_ID}' and job_exec_dt='{JOB_EXEC_DT}' ".format(TG_JOB_MST_ID=tg_job_mst_id,JOB_EXEC_DT=self.today_str)
+        query = "select count(tg_job_mst_id) from store.tg_job_mst where tg_job_mst_id='{TG_JOB_MST_ID}' and job_exec_dt='{JOB_EXEC_DT}' ".format(
+            TG_JOB_MST_ID=tg_job_mst_id, JOB_EXEC_DT=self.today_str)
         print query
         cnt = self.dbms.getRaw(query)[0][0]
-        print 'cnt :',cnt,cnt == 0
+        print 'cnt :', cnt, cnt == 0
         if cnt == 0:
-            job_info={}
-            job_info['tg_job_mst_id'] =tg_job_mst_id
+            job_info = {}
+            job_info['tg_job_mst_id'] = tg_job_mst_id
             job_info['job_exec_dt'] = self.today_str
             job_info['job_stt_dt'] = ''
             job_info['job_end_dt'] = ''
@@ -563,15 +533,16 @@ class ibrm_job_stat():
             job_info['mod_dt'] = self.now_datetime
             job_info['reg_usr'] = 'SYS'
             job_info['reg_dt'] = self.now_datetime
-            job_info_list=[]
+            job_info_list = []
             job_info_list.append(job_info)
             table_name = 'store.hs_job_mst'
-            self.dbms.dbInsertList(job_info_list,table_name)
+            self.dbms.dbInsertList(job_info_list, table_name)
 
         """
         store.hs_job_log(hs_job_dtl_id, hs_job_mst_id, rm_bk_stat, memo
         """
-        query = "select hs_job_mst_id from store.hs_job_mst where tg_job_mst_id = '{TG_JOB_MST_ID}'".format(TG_JOB_MST_ID=tg_job_mst_id)
+        query = "select hs_job_mst_id from store.hs_job_mst where tg_job_mst_id = '{TG_JOB_MST_ID}'".format(
+            TG_JOB_MST_ID=tg_job_mst_id)
         print query
         try:
             ret_set = self.dbms.getRaw(query)
@@ -579,10 +550,7 @@ class ibrm_job_stat():
             pass
         hs_job_mst_id = ret_set[0][0]
 
-
-
-
-        job_info={}
+        job_info = {}
         job_info['hs_job_mst_id'] = hs_job_mst_id
         job_info['tg_job_dtl_id'] = tg_job_dtl_id
         job_info['tg_job_mst_id'] = tg_job_mst_id
@@ -602,9 +570,8 @@ class ibrm_job_stat():
         table_name = 'store.hs_job_dtl'
         self.dbms.dbInsertList(job_info_list, table_name)
 
-
-
-        query = "select hs_job_dtl_id from store.hs_job_dtl where job_id = '{JOB_ID}' and job_exec_dt = '{TODAY}'".format(JOB_ID=job_id,TODAY=self.today_str)
+        query = "select hs_job_dtl_id from store.hs_job_dtl where job_id = '{JOB_ID}' and job_exec_dt = '{TODAY}'".format(
+            JOB_ID=job_id, TODAY=self.today_str)
         print query
         try:
             ret_set = self.dbms.getRaw(query)
@@ -613,14 +580,14 @@ class ibrm_job_stat():
         hs_job_dtl_id = ret_set[0][0]
 
         job_info = {}
-        job_info['hs_job_dtl_id']=hs_job_dtl_id
+        job_info['hs_job_dtl_id'] = hs_job_dtl_id
         job_info['hs_job_mst_id'] = hs_job_mst_id
         job_info['rm_bk_stat'] = 'Fail'
         # job_info['memo'] = 'This job is already running'
         job_info['use_yn'] = 'Y'
         job_info['pid'] = ''
         job_info['mod_usr'] = 'SYS'
-        job_info['mod_dt'] =  self.now_datetime
+        job_info['mod_dt'] = self.now_datetime
         job_info['reg_usr'] = 'SYS'
         job_info['reg_dt'] = self.now_datetime
         job_info['adtnl_itm_1'] = ''
@@ -630,13 +597,12 @@ class ibrm_job_stat():
         job_info_list = [job_info]
         table_name = 'store.hs_job_log'
 
-        self.dbms.dbInsertList(job_info_list,table_name)
+        self.dbms.dbInsertList(job_info_list, table_name)
 
     def job_update(self, job_status):
         self.set_date()
         job_id = job_status['job_id']
         tg_job_dtl_id = job_status['tg_job_dtl_id']
-
 
         query = "SELECT hs_job_dtl_id, hs_job_mst_id, tg_job_mst_id	FROM store.hs_job_dtl where tg_job_dtl_id = '{TG_JOB_DTL_ID}'".format(
             TG_JOB_DTL_ID=tg_job_dtl_id)
@@ -646,9 +612,7 @@ class ibrm_job_stat():
         hs_job_mst_id = ret_set[1]
         tg_job_mst_id = ret_set[2]
 
-
-
-        print 'tg_job_dtl_id :',tg_job_dtl_id
+        print 'tg_job_dtl_id :', tg_job_dtl_id
         print 'tg_job_mst_id :', tg_job_mst_id
         print 'hs_job_dtl_id :', hs_job_dtl_id
         print 'hs_job_mst_id :', hs_job_mst_id
@@ -697,7 +661,6 @@ class ibrm_job_stat():
 
         self.dbms.queryExec(query)
 
-
         # job_info = {}
         # job_info['hs_job_dtl_id'] = hs_job_dtl_id
         # job_info['hs_job_mst_id'] = hs_job_mst_id
@@ -716,30 +679,95 @@ class ibrm_job_stat():
         # table_name = 'store.hs_job_log'
         # self.dbms.dbInsertList(job_info_list, table_name)
 
-
-
-
-
-        ret_data =  {'FLETA_PASS': 'kes2719!', 'CMD': 'JOB_UPDATE_SUCC', 'ARG':{'result':'succ'}}
+        ret_data = {'FLETA_PASS': 'kes2719!', 'CMD': 'JOB_UPDATE_SUCC', 'ARG': {'result': 'succ'}}
         return ret_data
 
+    def evt_ins(self, return_data):
+        """
+        시스템유형	sys_type	varchar	20	N		TO_CHAR(current_timestamp, 'YYYYMMDD')	[시스템유형] 모니터링, 스케쥴링 ( mnt, sch )
+로그일자	log_dt	varchar	8	N			[로그일자]
+서버 ID	svr_id	integer		N		0	[서버 ID] 서버 ID Unique
+DB ID	db_id	integer		N		0	[DB ID]
+작업ID	job_id	integer		N		0	[작업ID] JOB ID Unique
+일작업상세ID	tg_job_dtl_id	integer		N		0	[일작업상세ID]
+이벤트유형	evt_type	varchar	20	N		0	[이벤트유형] 이벤트 분류코드 코드화 필요 ( 대 / 중 / 소 )
+이벤트상세유형	evt_dtl_type	varchar	20	N		'N/A'	[이벤트상세유형]
+이벤트코드	evt_code	varchar	50	N			[이벤트코드]
+이벤트레벨	evt_lvl	varchar	50	N		'N/A'	[이벤트레벨]
+이벤트메시지	evt_msg	varchar	200	Y			[이벤트메시지]
+이벤트내용	evt_cntn	text		Y			[이벤트내용]
+장비분류코드	dev_type	varchar	20	N		'N/A'	[장비분류코드] 이벤트대상장비유형
+조치대상여부	act_yn	varchar	2	N		'N'	[조치대상여부] 이벤트 조치 대상여부  Y/N
+조치유형	act_type	varchar	30	N		'N/A'	[조치유형] 처리유형 ( msg / tell / 등등 코드화 필요)
+조치결과여부	act_rslt	varchar	10	N		'N'	[조치결과여부] 처리결과 상태 ( Y/N/C/D 등 코드처리 필요)
+조치결과상세	act_desc	text		Y			[조치결과상세] 조치결과상세
+조치자	act_usr	varchar	14	N		'SYS'	[조치자]
+조치일시	act_dt	varchar	14	Y			[조치일시]
+메모	memo	varchar	200	Y			[메모] 부가메모
+사용여부	use_yn	varchar	1	N		'Y'	[사용여부] Y,N
+수정자ID	mod_usr	varchar	20	Y		'SYS'	[수정자ID] 등록자의 사용자ID
+수정일시	mod_dt	varchar	14	Y		TO_CHAR(current_timestamp, 'YYYYMMDDHH24MISS')	[수정일시] 수정일시.YYYYMMDDHH24MISS
+등록자ID	reg_usr	varchar	20	N			[등록자ID] 등록자의 사용자ID
+등록일시	reg_dt	varchar	14	N		TO_CHAR(current_timestamp, 'YYYYMMDDHH24MISS')	[등록일시] 등록일시. 백업인경우 :DB 시간
+        :return:
+        """
+        """
+        {'status': 'COMPLETED', 'input_bytes': '63655968768', 'job_id': '37', 'input_type': 'DB INCR', 'start_time': '2020-12-04 14:38:51', 'job_st': 'End-OK', 'pid': '10377', 'session_id': '5866', 'elapsed_seconds': '524', 'end_time': '2020-12-04 14:47:35', 'tg_job_dtl_id': '198744', 'write_bps': '655.73K', 'session_stamp': '1058279929', 'ora_sid': 'ibrm', 'session_recid': '5866'}
+        """
+        # return_data = {'status': 'COMPLETED', 'input_bytes': '63655968768', 'job_id': '37', 'input_type': 'DB INCR', 'start_time': '2020-12-04 14:38:51', 'job_st': 'End-OK', 'pid': '10377', 'session_id': '5866', 'elapsed_seconds': '524', 'end_time': '2020-12-04 14:47:35', 'tg_job_dtl_id': '198744', 'write_bps': '655.73K', 'session_stamp': '1058279929', 'ora_sid': 'ibrm', 'session_recid': '5866'}
+        evt_info = {}
+        job_id = return_data['job_id']
+        evt_info['job_id'] = job_id
+        tg_job_dtl_id = return_data['tg_job_dtl_id']
+        evt_info['tg_job_dtl_id'] = tg_job_dtl_id
+        log_dt = datetime.datetime.now().strftime('%Y%m%d')
+        evt_info['log_dt'] = log_dt
 
+        query = "SELECT job_nm, work_div_1, work_div_2, sh_id FROM master.mst_job where job_id ='{}'".format(job_id)
 
+        ret = self.dbms.getRaw(query)[0]
 
+        job_nm = ret[0]
+        work_div_1 = ret[1]
+        work_div_2 = ret[2]
+        sh_id = ret[3]
 
+        query = """SELECT sh_nm,  svr_id, svr_nm, ip_addr, db_id, db_nm, back_type, sh_file_nm	FROM master.mst_shell where sh_id = '{}'""".format(
+            sh_id)
+        ret = self.dbms.getRaw(query)[0]
+        sh_nm = ret[0]
+        svr_id = ret[1]
+        svr_nm = ret[2]
+        ip_addr = ret[3]
+        db_id = ret[4]
+        db_nm = ret[5]
+        back_type = ret[6]
+        sh_file_nm = ret[7]
+        evt_info['svr_id'] = svr_id
+        evt_info['db_id'] = db_id
+        evt_info['evt_type'] = 'BACKUP_JOB_FAIL'
+        evt_info['evt_dtl_type'] = ''
+        evt_info['evt_lvl'] = 'ERROR'  # ERROR/CRITICAL/INFO
+        evt_info['evt_msg'] = '{JOB_NM}({SH_FILE_NM}) BACKUP JOB FAIL'.format(JOB_NM=job_nm, SH_FILE_NM=sh_file_nm)
+        evt_info['evt_cntn'] = '{WORK_DIV_1} {WORK_DIV_2} {JOB_NM} {SH_NM} {SVR_NM} {DB_NM}'.format(
+            WORK_DIV_1=work_div_1, WORK_DIV_2=work_div_2, JOB_NM=job_nm, SH_NM=sh_nm, SVR_NM=svr_nm, DB_NM=db_nm)
+        evt_info['dev_type'] = 'DB'
+        evt_info['act_yn'] = 'Y'
+        evt_info_list = []
+        evt_info_list.append(evt_info)
+        table_name = 'event.evt_log'
+        self.dbms.dbInsertList(evt_info_list, table_name)
 
-    def job_status_fail_update(self,job_id):
+    def job_status_fail_update(self, job_id):
         self.set_date()
-        hs_job_dtl_id,hs_job_mst_id = self.get_hs_id(job_id)
+        hs_job_dtl_id, hs_job_mst_id = self.get_hs_id(job_id)
 
-        query = "SELECT  hs_job_dtl_id,hs_job_mst_id  FROM STORE.HS_JOB_DTL WHERE JOB_ID ='{JOB_ID}' and job_exec_dt='{EXEC_DT}'".format(JOB_ID=job_id,EXEC_DT=self.today_str)
+        query = "SELECT  hs_job_dtl_id,hs_job_mst_id  FROM STORE.HS_JOB_DTL WHERE JOB_ID ='{JOB_ID}' and job_exec_dt='{EXEC_DT}'".format(
+            JOB_ID=job_id, EXEC_DT=self.today_str)
         ret_set = self.dbms.getRaw(query)
         if len(ret_set) > 0:
             hs_job_dtl_id = ret_set[0][0]
             hs_job_mst_id = ret_set[0][1]
-
-
-
 
         query = """UPDATE store.hs_job_dtl SET
                run_type ='RUN', 
@@ -748,7 +776,7 @@ class ibrm_job_stat():
                memo = ''
 
                WHERE hs_job_dtl_id = '{HS_JOB_DTL_ID}'
-               """.format(MOD_DT=self.now_datetime,HS_JOB_DTL_ID=hs_job_dtl_id)
+               """.format(MOD_DT=self.now_datetime, HS_JOB_DTL_ID=hs_job_dtl_id)
         print query
         try:
             self.dbms.queryExec(query)
@@ -769,6 +797,7 @@ class ibrm_job_stat():
     def main(self):
         job_scheduler.sched().already_past_job()
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     ibrm_job_stat().main()
 
