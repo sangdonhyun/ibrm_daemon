@@ -13,6 +13,7 @@ import ConfigParser
 import random
 import ibrm_dbms
 import datetime
+import job_state
 
 class SocketSender():
     def __init__(self,HOST,PORT):
@@ -64,7 +65,9 @@ class SocketSender():
             sBit = True
         except socket.error as e:
             sBit = False
-            print e
+            print str(e)
+            received = str(e)
+
         finally:
             sock.close()
         return received
@@ -124,11 +127,20 @@ class SocketSender():
         data['FLETA_PASS'] = 'kes2719!'
         data['CMD'] = 'AGENT_JOB_EXCUTE'
         data['ARG'] = job_info
+        try:
+            return_data = self.socket_send(data)
+        except Exception as e:
+            print '-'*50
+            print str(e)
+            print '-' * 50
+            job_info['memo'] = 'SOCKET ERROR (CHECK IBRM AGENT)'
+            job_state.ibrm_job_stat().job_submit_fail(job_info)
 
-        return_data = self.socket_send(data)
+
+
         print 'return data:', return_data
-        query = ""
-
+        if '[Errno 10060]' in return_data:
+            job_state.ibrm_job_stat().job_submit_fail(job_info)
         return return_data
 
     def send(self):

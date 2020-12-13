@@ -58,6 +58,7 @@ class TCPConnectionHandler(SocketServer.BaseRequestHandler):
 
         job_state.ibrm_job_stat().job_aleady_exist(job_id,tg_job_dtl_id,memo)
 
+        job_state.ibrm_job_stat().evt_ins(job_status)
         # query = """UPDATE store.hs_job_dtl SET
         # job_stat ='FAIL',
         # memo = '{MEMO}
@@ -81,7 +82,7 @@ class TCPConnectionHandler(SocketServer.BaseRequestHandler):
         tg_job_dtl_id = job_status['tg_job_dtl_id']
         memo = job_status['memo']
 
-        job_state.ibrm_job_stat().job_submit_fila(job_id,tg_job_dtl_id,memo)
+        job_state.ibrm_job_stat().job_submit_fail(job_status)
 
     def get_list(self):
         pylist=glob.glob(os.path.join('SHELL','*.sh'))
@@ -108,10 +109,17 @@ class TCPConnectionHandler(SocketServer.BaseRequestHandler):
         job_id = job_status['job_id']
         job_state.ibrm_job_stat().job_update(job_status)
 
+    def job_submit_fail(self,log_return_data):
+        print 'log update 111',log_return_data
+        job_state.ibrm_job_stat().job_submit_fail(log_return_data)
 
     def job_log_update(self,log_return_data):
         print 'log update 111',log_return_data
         job_state.ibrm_job_stat().job_log_update(log_return_data)
+
+    def job_status_shell_only(self,log_return_data):
+        print 'job_status_shell_only :',log_return_data
+        job_state.ibrm_job_stat().job_status_shell_only(log_return_data)
 
     def job_status_insert(self,job_status):
         print 'job_status :',job_status
@@ -183,6 +191,22 @@ class TCPConnectionHandler(SocketServer.BaseRequestHandler):
                     if data is not None:
                         print 'LOG_UPDATE , log_args : ',ret_args
                         self.job_log_update(ret_args)
+                        self.request.send(str(ret_args))
+
+                if cmd == 'JOB_SUBMIT_FAIL':
+                    ret_args = info['ARG']
+
+                    if data is not None:
+                        print 'LOG_UPDATE , log_args : ',ret_args
+                        self.job_log_update(ret_args)
+                        self.request.send(str(ret_args))
+
+                if cmd == 'JOB_STATUS_SHELL_ONLY':
+                    ret_args = info['ARG']
+
+                    if data is not None:
+                        print 'LOG_UPDATE , log_args : ',ret_args
+                        self.job_status_shell_only(ret_args)
                         self.request.send(str(ret_args))
 
                 if cmd == 'AGENT_HEALTH_CHECK':

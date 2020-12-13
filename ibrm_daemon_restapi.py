@@ -8,6 +8,8 @@ from functools import update_wrapper
 # from flask_restful import Api
 import json
 import ast
+import common
+
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = "Content-Type"
 app.config['CORS_RESOURCES'] = {r"*": {"origins": "*"}}
@@ -50,9 +52,21 @@ def shell_list():
     resp = flask.make_response(str(shell_list_data))
     return shell_list_data_string
 
-@app.route("/<host>/<db_name>/<shell_name>")
+#@app.route("/<host>/<db_name>/<shell_name>")
+@app.route("/shell-detail", methods=["POST"])
 @cross_origin()
-def shell_detail(host,db_name,shell_name):
+def shell_detail():
+    shObj = request.get_json()
+    """
+    {
+  "host":"121.170.193.200",
+  "db":"IBRM",
+  "shell_name":"test.sh"
+     }
+    """
+    host = shObj['host']
+    db_name = shObj['db_name']
+    shell_name = shObj['shell_name']
     print 'HOST :',host
     print 'db_name :',db_name
     print 'shell_name :', shell_name
@@ -77,12 +91,17 @@ def shell_detail(host,db_name,shell_name):
     """
     port = 53001
     shell_data = ibrm_daemon_send.SocketSender(host, port).shell_detail(db_name,shell_name)
+
     shell_dict = {}
     shell_dict ['shell_detail'] = shell_data
-    input = json.dumps(shell_dict)
+    print shell_data
+    input = json.dumps(shell_data,ensure_ascii=False)
+    print 'input :',input
     return_data = json.dumps(ast.literal_eval(input))
+    print 'retun data :',return_data
     #shell_data = json.dumps(ast.literal_eval(json.dumps(ast.literal_eval(shell_data))))
     # response.headers.add('Access-Control-Allow-Origin', '*')
+    # return_data=common.hangul_dict().pprint(return_data)
 
     return str(return_data)
 

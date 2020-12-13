@@ -113,8 +113,8 @@ SELECT
   ,tjd.tg_job_dtl_id -- 18[일작업상세ID]    
   ,tjd.job_id        -- 19[작업ID] JOB ID Unique 
   ,CASE 
-    WHEN exec_time::time >= (NOW() - INTERVAL '5 MINUTE')::TIME THEN 'Y'
-    WHEN exec_time::time < (NOW() - INTERVAL '5 MINUTE')::TIME THEN 'N'
+    WHEN mj.exec_time::time >= (NOW() - INTERVAL '5 MINUTE')::TIME THEN 'Y'
+    WHEN mj.exec_time::time < (NOW() - INTERVAL '5 MINUTE')::TIME THEN 'N'
     ELSE 'N'      
    END AS EXEC_YN  
 FROM 
@@ -124,7 +124,7 @@ FROM
   ON ( 
       tjm.tg_job_mst_id = tjd.tg_job_mst_id 
       AND tjd.use_yn='Y' 
-      AND tjd.run_type ='Run'
+      AND tjd.run_type ='RUN'
     )
   INNER JOIN 
   master.mst_job mj 
@@ -224,8 +224,8 @@ WHERE
       ,tjd.tg_job_dtl_id -- 18[일작업상세ID]    
       ,tjd.job_id        -- 19[작업ID] JOB ID Unique 
       ,CASE 
-        WHEN exec_time::time >= (NOW() - INTERVAL '5 MINUTE')::TIME THEN 'Y'
-        WHEN exec_time::time < (NOW() - INTERVAL '5 MINUTE')::TIME THEN 'N'
+        WHEN mj.exec_time::time >= (NOW() - INTERVAL '5 MINUTE')::TIME THEN 'Y'
+        WHEN mj.exec_time::time < (NOW() - INTERVAL '5 MINUTE')::TIME THEN 'N'
         ELSE 'N'      
        END AS EXEC_YN  
     FROM 
@@ -235,7 +235,7 @@ WHERE
       ON ( 
           tjm.tg_job_mst_id = tjd.tg_job_mst_id 
           AND tjd.use_yn='Y' 
-          AND tjd.run_type ='Run'
+          AND tjd.run_type ='RUN'
         )
       INNER JOIN 
       master.mst_job mj 

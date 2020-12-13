@@ -127,6 +127,18 @@ class fbrm_db():
             if con:
                 con.close()
 
+    def queryExe_test(self, query):
+        print query
+        con = None
+
+        con = psycopg2.connect(self.conn_string)
+        cur = con.cursor()
+
+        cur.execute(query)
+        con.commit()
+
+        con.close()
+
 
     def del_rman_category(self,del_list):
         db = psycopg2.connect(self.conn_string)
