@@ -418,7 +418,7 @@ class ibrm_job_stat():
         return job_info
 
     def set_pause(self, job_id):
-        run_type = 'Pause'
+        run_type = 'PAUSE'
         odate = self.get_odate()
         query = """
         INSERT INTO store.tg_job_dtl_log
