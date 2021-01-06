@@ -5,18 +5,18 @@ import os
 import ibrm_daemon_send
 import ConfigParser
 import time
-import ibrm_logger
 import job_state
 import psutil
+import log_control
 
-log = ibrm_logger.ibrm_logger().logger('ibrm_server_sched')
-
+log=log_control.LogControl()
 
 class sched():
     def __init__(self):
         self.db = ibrm_dbms.fbrm_db()
         self.cfg = self.get_cfg()
         self.job_prc = job_state.ibrm_job_stat()
+
 
     def already_past_job(self):
         dt = datetime.datetime.now() - datetime.timedelta(minutes=5)
@@ -638,9 +638,11 @@ WHERE
                 # 1> tg_job_dtl_log insert
                 ex_bit = True
                 print job['job_id'],job['tg_job_dtl_id']
+
                 self.job_prc.set_tg_job_dtl_log(job['job_id'],job['tg_job_dtl_id'])
 
                 if job['run_type'] == 'RE-REUN':
+                    log.logdata('DAEMON', 'INFO', '60002', str(job['shell_name']))
                     ex_bit=True
                     self.job_prc.set_hs_job_dtl_udt(job['job_id'],job['tg_job_dtl_id'])
                     # hs_job_dtl update (upd_stat = 'Y', use_yn= 'N')
@@ -697,26 +699,26 @@ WHERE
                 print job
                 print submit_job_info
                 print job['run_type']
+                log.logdata('DAEMON', 'INFO', '60001', str('submit_job_info'))
                 self.job_submit(submit_job_info)
+
 
 
 if __name__ == '__main__':
     print 'iBRM Schduller START'
+    log.logdata('DAEMON', 'INFO', '70001', str(''))
     while True:
         print '=' * 50
         try:
             sched().main()
         except Exception as e:
+            log.logdata('DAEMON', 'ERROR', '70004', str(e))
             print str(e)
 
         print datetime.datetime.now()
         msg = "memory size :" + str(dict(psutil.virtual_memory()._asdict())['percent'])
         print msg
-        try:
-            log.info(msg)
 
-        except Exception as e:
-            print str(e)
         time.sleep(30)
 
     # sched().already_past_job()
