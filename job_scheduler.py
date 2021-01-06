@@ -132,10 +132,13 @@ FROM
          TO_TIMESTAMP( tg.job_run_dt || tg.exec_time , 'YYYYMMDDHH24MI')  >= (  NOW() - INTERVAL '5 MINUTE'  )
         AND TO_TIMESTAMP( tg.job_run_dt || tg.exec_time , 'YYYYMMDDHH24MI')  <=   NOW()   
         AND tg.run_type ='RUN' AND tg.job_stat IS NULL
-        THEN 'RUN'
-      WHEN tg.run_type ='RELEASE' AND tg.job_stat IS NULL THEN 'RUN'
+        THEN 'RUN'     
+      WHEN 
+        tg.run_type ='RELEASE' AND tg.exec_time::TIME >= (NOW() - INTERVAL '5 MINUTE')::TIME  
+        AND tg.exec_time::TIME <= NOW()::TIME 
+        AND tg.job_stat IS NULL THEN 'RUN'
       WHEN tg.run_type IN ('RE-RUN') THEN 'RE-RUN'
-      WHEN tg.run_type IN ('PAUSE') THEN 'PAUSE'    
+      WHEN tg.run_type IN ('PAUSE') AND mj.rel_exec_type = 'SCH' THEN  'PAUSE'    
       ELSE 'N'      
      END AS target_yn        
     ,mj.timeout      
@@ -278,7 +281,8 @@ WHERE
             job_info['job_id'] = job[22]
 
             job_list.append(job_info)
-
+        if len(job_list) >0 :
+            print sql
         return job_list
     def get_odate_1(self):
         try:
@@ -624,32 +628,36 @@ WHERE
             print job
             print job['job_id']
             print job['tg_job_dtl_id']
-            ex_bit = (job['exec_time'] == now_date) or (
-                        int(job['exec_time']) in range(int(limit_date), int(now_date)))
 
+            ex_bit = False
+            if job['run_type'] == 'RUN':
+                ex_bit = (job['exec_time'] == now_date) or (
+                        int(job['exec_time']) in range(int(limit_date), int(now_date)))
             print ex_bit
             if job['run_type'] in ['RE-RUN','RELEASE'] :
-                ex_bit = True
                 # 1> tg_job_dtl_log insert
+                ex_bit = True
                 print job['job_id'],job['tg_job_dtl_id']
                 self.job_prc.set_tg_job_dtl_log(job['job_id'],job['tg_job_dtl_id'])
 
                 if job['run_type'] == 'RE-REUN':
+                    ex_bit=True
                     self.job_prc.set_hs_job_dtl_udt(job['job_id'],job['tg_job_dtl_id'])
                     # hs_job_dtl update (upd_stat = 'Y', use_yn= 'N')
 
             if job['run_type'] == 'PAUSE':
                 # ex_bit = self.get_pause_status(job)
                 # tg_job_dtl_log insert
-                if ex_bit:
-                    self.job_prc.set_tg_job_dtl_log(job['job_id'],job['tg_job_dtl_id'])
+
+                self.job_prc.set_tg_job_dtl_log(job['job_id'],job['tg_job_dtl_id'])
                     # tg_job_dtl_log insert
 
             if job['pre_job_id'] > 0:
                 print 'pre_job_id :',job['pre_job_id']
                 yyyymmdd = datetime.datetime.now().strftime('%Y%m%d')
+                odate=self.get_odate()
                 query = """SELECT job_stat, rm_bk_stat   FROM store.hs_job_dtl where  job_exec_dt = '{YYYYMMDD}' and job_id = '{PRE_JOB_ID}' """.format(
-                    YYYYMMDD=yyyymmdd, PRE_JOB_ID=job['pre_job_id'])
+                    YYYYMMDD=odate, PRE_JOB_ID=job['pre_job_id'])
                 print query
 
                 ret = self.db.getRaw(query)
@@ -658,11 +666,15 @@ WHERE
                     job_stat = ret_set[0]
                     rm_bk_stat = ret_set[1]
                     print 'ret_set :',ret_set
-                    if not job_stat == 'End-OK':
-                        ex_bit = False
-                        self.job_prc.set_pause(job['job_id'])
+                    if job['rel_exec_type'] == 'SCH':
+                        if not job_stat == 'End-OK':
+                            ex_bit = False
+                            self.job_prc.set_pause(job['job_id'])
+                        else:
+                            ex_bit = True
                     else:
-                        ex_bit = True
+                        print 'rel_exec_bit :',job['rel_exec_type']
+                        ex_bit = False
                 else:
                     ex_bit = False
 
@@ -702,6 +714,7 @@ if __name__ == '__main__':
         print msg
         try:
             log.info(msg)
+
         except Exception as e:
             print str(e)
         time.sleep(30)

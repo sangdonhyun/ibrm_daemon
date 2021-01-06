@@ -104,9 +104,7 @@ class ibrm_job_stat():
     def job_start_setup(self, job_info):
         self.set_date()
         job_id = job_info['job_id']
-        tg_job_dtl_id = job_info['tg_job_dtl_id']
-        # tg_job_dtl_id, tg_job_mst_id = self.get_tg_id(job_id)
-
+        tg_job_dtl_id, tg_job_mst_id = self.get_tg_id(job_id)
         tg_job_mst_id = job_info['tg_job_mst_id']
         table_name = 'store.hs_job_mst'
         query = "select count(*) from {} where tg_job_mst_id = '{}' and job_exec_dt = '{}'".format(table_name,
@@ -139,9 +137,8 @@ class ibrm_job_stat():
         ret = self.dbms.getRaw(query)
         print ret
         if ret[0][0] == 0:
-            query = "select hs_job_mst_id from store.hs_job_mst where tg_job_mst_id ='{}'".format(
-                tg_job_mst_id)
-            print query
+            query = "select hs_job_mst_id from store.hs_job_mst where tg_job_mst_id ='{}' and job_exec_dt = '{}'".format(
+                tg_job_mst_id, self.odate)
             hs_job_mst_id = self.dbms.getRaw(query)[0][0]
             set_job = {}
             set_job['tg_job_mst_id'] = job_info['tg_job_mst_id']
@@ -315,11 +312,7 @@ class ibrm_job_stat():
         to_day = datetime.datetime.now().strftime('%Y%m%d')
         self.set_date()
         odate_1 = self.get_odate_1()
-
-        query = "SELECT job_exec_dt FROM store.tg_job_dtl WHERE tg_job_dtl_id = '{TG_JOB_DTL_ID}'".format(TG_JOB_DTL_ID=tg_job_dtl_id)
-        target_odate = self.dbms.getRaw(query)[0][0]
         print 'post_job_id :', post_job_id, not post_job_id == 0
-        print 'target odate :',target_odate
         if not post_job_id == 0:
             query = """
             SELECT 
@@ -425,8 +418,8 @@ FROM
             AND hjd.tg_job_dtl_id = tjd.tg_job_dtl_id                     
             AND tjdl.tg_job_dtl_id = hjd.tg_job_dtl_id 
         )
- --    WHERE 
- --     tjm.job_exec_dt >= '{YYYYMMDD}' 
+      WHERE 
+      tjm.job_exec_dt >= '{YYYYMMDD}' 
     ) tg  
     INNER JOIN master.mst_job mj 
       ON mj.job_id = tg.job_id
@@ -442,9 +435,9 @@ FROM
         AND moi.ora_id = ms.db_id 
       )
   ) tgrun 
-  WHERE job_id='{JOB_ID}' AND job_exec_dt='{ODATE}' order by 1 asc
+  WHERE job_id='{JOB_ID}' AND tg_job_dtl_id='{TG_JOB_DTL_ID} order by 1 asc'
 
-            """.format(YYYYMMDD=odate_1, JOB_ID=post_job_id, TG_JOB_DTL_ID=tg_job_dtl_id,ODATE=target_odate)
+            """.format(YYYYMMDD=odate_1, JOB_ID=post_job_id, TG_JOB_DTL_ID=tg_job_dtl_id)
             print query
             job = self.dbms.getRaw(query)[0]
             if len(job) > 0:
