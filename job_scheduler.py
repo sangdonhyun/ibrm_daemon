@@ -699,7 +699,7 @@ WHERE
                 print job
                 print submit_job_info
                 print job['run_type']
-                log.logdata('DAEMON', 'INFO', '60001', str('submit_job_info'))
+                log.logdata('DAEMON', 'INFO', '60001', str(submit_job_info))
                 self.job_submit(submit_job_info)
 
 

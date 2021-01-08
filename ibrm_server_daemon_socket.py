@@ -12,15 +12,17 @@ import os
 import common
 import shutil
 import ConfigParser
-import ibrm_logger
+#import ibrm_logger
 import datetime
 import logging
 import glob
 import ibrm_dbms
 import job_state
+import log_control
 
 com = common.Common()
 dbms = ibrm_dbms.fbrm_db()
+log = log_control.LogControl()
 
 ############################################################################
 
@@ -55,7 +57,7 @@ class TCPConnectionHandler(SocketServer.BaseRequestHandler):
         job_id = job_status['job_id']
         memo = job_status['memo']
         tg_job_dtl_id = job_status['tg_job_dtl_id']
-
+        log.LogControl().logdata('DAEMON', 'INFO', '60005', str(job_status))
         job_state.ibrm_job_stat().job_aleady_exist(job_id,tg_job_dtl_id,memo)
 
         job_state.ibrm_job_stat().evt_ins(job_status)
@@ -73,7 +75,7 @@ class TCPConnectionHandler(SocketServer.BaseRequestHandler):
         job_id = job_status['job_id']
         tg_job_dtl_id = job_status['tg_job_dtl_id']
         memo = job_status['memo']
-
+        log.LogControl().logdata('DAEMON', 'INFO', '60003', str(job_status))
         job_state.ibrm_job_stat().job_submit_fila(job_id,tg_job_dtl_id,memo)
 
 
@@ -81,7 +83,7 @@ class TCPConnectionHandler(SocketServer.BaseRequestHandler):
         job_id = job_status['job_id']
         tg_job_dtl_id = job_status['tg_job_dtl_id']
         memo = job_status['memo']
-
+        log.LogControl().logdata('DAEMON', 'INFO', '60004', str(job_status))
         job_state.ibrm_job_stat().job_submit_fail(job_status)
 
     def get_list(self):

@@ -1,3 +1,3 @@
 import log_control
 
-log_control.LogControl().logdata('AGENT', 'INFO', '50009', str('log test'))
+log_control.LogControl().logdata('DAEMON', 'INFO', '60001', str('log test'))
