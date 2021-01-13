@@ -669,9 +669,9 @@ FROM
             reg_date = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
             query = """UPDATE store.hs_job_logfile
      SET file_cntn='{LOG_CONTENT}', rm_bk_stat='{JOB_ST}', prgrs_time='{ELAPSED_SEC}', mod_dt='{MOD_DT}'
-     WHERE hs_job_mst_id = '{MST_ID}';
+     WHERE hs_job_dtl_id = '{HS_JOB_DTL_ID}';
                 """.format(LOG_CONTENT=log_content, JOB_ST=log_return_data['status'],
-                           ELAPSED_SEC=log_return_data['elapsed_seconds'], MOD_DT=reg_date, MST_ID=hs_job_mst_id)
+                           ELAPSED_SEC=log_return_data['elapsed_seconds'], MOD_DT=reg_date, HS_JOB_DTL_ID=hs_job_dtl_id)
             print query
             self.dbms.queryExec(query)
 
