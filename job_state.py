@@ -6,6 +6,7 @@ import job_scheduler
 import ibrm_logger
 import ConfigParser
 import ibrm_daemon_send
+import re
 import logging
 
 
@@ -235,16 +236,35 @@ class ibrm_job_stat():
                         print str(e)
                     self.job_submit(submit_job_info)
 
+    def get_logfile(self,hs_job_dtl_id):
+        query="""SELECT file_cntn FROM store.hs_job_logfile hjl  WHERE hs_job_dtl_id ='{}'
+        """.format(hs_job_dtl_id)
+        ret=self.dbms.getRaw(query)[0]
+        log_content=''
+        if len(ret)>0:
+            log_content=ret[0]
+        return log_content
+    def get_progress(self):
+        return '0'
+
     def job_status_insert(self, job_status):
         self.set_date()
         tg_job_dtl_id = job_status['tg_job_dtl_id']
         print 'tg_job_dtl_id', tg_job_dtl_id
         query = "SELECT hs_job_dtl_id, hs_job_mst_id, tg_job_mst_id FROM store.hs_job_dtl where tg_job_dtl_id = '{TG_JOB_DTL_ID}'".format(
             TG_JOB_DTL_ID=tg_job_dtl_id)
-        print query
+
         ret_set = self.dbms.getRaw(query)[0]
+        print ret_set
         hs_job_dtl_id = ret_set[0]
         hs_job_mst_id = ret_set[1]
+        log_content=self.get_logfile(hs_job_dtl_id)
+        print '1'*20
+        backup_file=self.get_backupfile(log_content,tg_job_dtl_id)
+        print '2' * 20
+        progress =self.get_progress()
+        print '3' * 20
+        print 'backpu file count :',backup_file
         data_set = {}
         data_set['hs_job_dtl_id'] = hs_job_dtl_id
         data_set['hs_job_mst_id'] = hs_job_mst_id
@@ -257,12 +277,15 @@ class ibrm_job_stat():
         data_set['rm_bk_stat'] = job_status['status']
         data_set['bk_in_size'] = job_status['input_bytes']
         data_set['memo'] = ''
+        data_set['file_cnt'] = backup_file
+        data_set['prgrs'] = progress
         data_set['use_yn'] = 'Y'
         data_set['mod_usr'] = 'SYS'
         data_set['mod_dt'] = self.now_datetime
         data_set['reg_usr'] = 'SYS'
         data_set['reg_dt'] = self.now_datetime
         data_list = []
+        print 'JOB_STATUS DATASET :',data_set
         data_list.append(data_set)
         db_table = 'store.hs_job_log'
         self.dbms.dbInsertList(data_list, db_table)
@@ -605,6 +628,9 @@ FROM
                 self.set_pause(job_id)
         return run_bit
 
+    def regex_cnt(self,log_contrent, pattern):
+        return len(re.findall(pattern, log_contrent))
+
     def job_log_update(self, log_return_data):
         self.set_date()
         print 'LOG_UPDATE 33333'
@@ -619,8 +645,8 @@ FROM
         hs_job_dtl_id = ret_set[0]
         hs_job_mst_id = ret_set[1]
         tg_job_mst_id = ret_set[2]
-        query = "SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_mst_id = '{}'".format(
-            hs_job_mst_id)
+        query = "SELECT COUNT(hs_job_dtl_id) FROM STORE.HS_JOB_LOGFILE WHERE hs_job_dtl_id = '{}'".format(
+            hs_job_dtl_id)
         print query
         cnt_set = self.dbms.getRaw(query)
         cnt = cnt_set[0][0]
@@ -642,6 +668,10 @@ FROM
             with open(log_path) as f:
                 log_content = f.read()
             log_content = log_content.replace("'", '`')
+            try:
+                log_content = log_content.decode('cp949').encode('utf-8')
+            except:
+                pass
         else:
             log_content = 'NOT FOUND'
         if ins_bit:
@@ -667,13 +697,57 @@ FROM
             self.dbms.dbInsertList(log_update_list, table_name)
         else:
             reg_date = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
-            query = """UPDATE store.hs_job_logfile
-     SET file_cntn='{LOG_CONTENT}', rm_bk_stat='{JOB_ST}', prgrs_time='{ELAPSED_SEC}', mod_dt='{MOD_DT}'
-     WHERE hs_job_dtl_id = '{HS_JOB_DTL_ID}';
-                """.format(LOG_CONTENT=log_content, JOB_ST=log_return_data['status'],
-                           ELAPSED_SEC=log_return_data['elapsed_seconds'], MOD_DT=reg_date, HS_JOB_DTL_ID=hs_job_dtl_id)
-            print query
-            self.dbms.queryExec(query)
+            if not log_content == '':
+                query = """UPDATE store.hs_job_logfile
+         SET file_cntn='{LOG_CONTENT}', rm_bk_stat='{JOB_ST}', prgrs_time='{ELAPSED_SEC}', mod_dt='{MOD_DT}'
+         WHERE hs_job_dtl_id = '{HS_JOB_DTL_ID}';
+                    """.format(LOG_CONTENT=log_content, JOB_ST=log_return_data['status'],
+                               ELAPSED_SEC=log_return_data['elapsed_seconds'], MOD_DT=reg_date, HS_JOB_DTL_ID=hs_job_dtl_id)
+                print query
+                self.dbms.queryExec(query)
+
+
+    def get_backupfile(self,log_content,tg_job_dtl_id):
+        print 'tg_job_dtl_id :',tg_job_dtl_id
+
+        query="""SELECT back_type FROM master.mst_shell ms WHERE sh_id IN (
+SELECT sh_id FROM master.mst_job mj WHERE job_id IN (
+SELECT job_id FROM store.hs_job_dtl hjd WHERE tg_job_dtl_id ='{}'))""".format(tg_job_dtl_id)
+        print 'query :',query
+        ret=self.dbms.getRaw(query)[0]
+        print ret
+        backup_type=ret[0]
+        """
+        backup type 
+        
+        ARCH
+        INCR_L0
+        INCR_L1
+        FULL_L0
+        MRG
+        INCR_MRG
+        DSC
+        DSD
+        ASC
+        ASD
+        INCL_L0_DEL
+        INCL_L1_DEL
+        FULL_L0_DEL"""
+        backup_cnt='0'
+        if backup_type == 'ARCH':
+            pt='backup set complete'
+            backup_cnt=self.regex_cnt(log_content,pt)
+
+        if 'INCR' in backup_type or 'FULL' in backup_type:
+            pt='backup set complete'
+            backup_cnt = self.regex_cnt(log_content, pt)
+        pt = 'backup set complete'
+        backup_cnt = self.regex_cnt(log_content, pt)
+        return backup_cnt
+
+    def regex_cnt(self,log_content, pattern):
+        return len(re.findall(pattern, log_content))
+
 
     def get_job(self):
         sql = """
@@ -1007,7 +1081,7 @@ FROM
         :return:
         """
         if 'COMPLETED' in job_status['status']:
-            job_st = 'END-OK'
+            job_st = 'End-OK'
         else:
             job_st = 'Running'
         mod_dt = datetime.datetime.now().strftime('%Y%m%d%H%M%S')

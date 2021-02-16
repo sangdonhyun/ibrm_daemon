@@ -86,6 +86,10 @@ class SocketSender():
         data['ARG'] = job_info
         job_status = self.socket_send(data)
 
+
+    def agent_health_check(self,job_info):
+        pass
+
     def jos_status(self,job_info):
 
         print self.HOST

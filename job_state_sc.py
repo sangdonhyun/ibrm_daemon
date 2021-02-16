@@ -1000,7 +1000,7 @@ FROM
         :return:
         """
         if 'COMPLETED' in job_status['status']:
-            job_st = 'END-OK'
+            job_st = 'End-OK'
         else:
             job_st = 'Running'
         mod_dt = datetime.datetime.now().strftime('%Y%m%d%H%M%S')

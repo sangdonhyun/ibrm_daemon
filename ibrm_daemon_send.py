@@ -72,6 +72,16 @@ class SocketSender():
             sock.close()
         return received
 
+
+    def ag_health_check(self):
+
+        data = {}
+        data['FLETA_PASS'] = 'kes2719!'
+        data['CMD'] = 'AGENT_HEALTH_CHECK'
+        data['ARG'] = {}
+        ret=self.socket_send(data)
+        return ret
+
     def shell_list(self,db_name,use_path,path):
 
         print self.HOST
@@ -390,12 +400,16 @@ if __name__ == '__main__':
 
     ss = SocketSender(HOST, PORT)
     job_info={}
+    ret=ss.ag_health_check()
 
-    st = job_state.ibrm_job_stat()
-    job_info=st.get_job()
-    print job_info
-    st.job_start_setup(job_info)
-    ss.jos_excute(job_info)
+    print '#'*50
+    print ret
+    print '#'*50
+    # st = job_state.ibrm_job_stat()
+    # job_info=st.get_job()
+    # print job_info
+    # st.job_start_setup(job_info)
+    # ss.jos_excute(job_info)
 
 
     # ss.shell_detail(db_name,shell_name)
