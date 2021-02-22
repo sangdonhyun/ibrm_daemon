@@ -931,11 +931,13 @@ SELECT job_id FROM store.hs_job_dtl hjd WHERE tg_job_dtl_id ='{}'))""".format(tg
         return ret_data
 
     def job_aleady_exist(self, job_id, tg_job_dtl_id, memo):
+        print 'arg :',job_id,tg_job_dtl_id,memo
         memo = memo.replace("'", "`")
         now_str = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
         print now_str
         query = """UPDATE store.hs_job_dtl SET job_stat='Fail', memo='{}',mod_dt='{}' WHERE tg_job_dtl_id = '{}' """.format(
             memo, now_str, tg_job_dtl_id)
+
         print query
         self.dbms.queryExec(query)
         job_id_info = self.get_job_id(tg_job_dtl_id)
