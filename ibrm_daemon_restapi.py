@@ -9,6 +9,8 @@ from functools import update_wrapper
 import json
 import ast
 import common
+import os
+import ConfigParser
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = "Content-Type"
@@ -181,4 +183,15 @@ def server_error(e):
 
 
 if __name__ == "__main__":
-    app.run(debug=True,host="121.170.193.221",port=53004)
+    cfg = ConfigParser.RawConfigParser()
+    cfg_file = os.path.join('config','config.cfg')
+    cfg.read(cfg_file)
+    try:
+        ip=cfg.get('rest_api','ip')
+    except:
+        ip='127.0.0.1'
+    try:
+        port=cfg.get('rest_api','port')
+    except:
+        port=53004
+    app.run(debug=True,host=ip,port=port)
