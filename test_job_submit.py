@@ -255,6 +255,7 @@ SELECT
         if ret=='3':
             self.rerun_job(target_job)
 
+
     def running_job(self):
         job_list = self.get_starting_job('Running')
         print '=' * 50

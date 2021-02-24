@@ -5,18 +5,20 @@ import os
 import ibrm_daemon_send
 import ConfigParser
 import time
+import ibrm_logger
 import job_state
 import psutil
-import log_control
+import job_overtime_monitor
 
-log=log_control.LogControl()
+log = ibrm_logger.ibrm_logger().logger('ibrm_server_sched')
+
 
 class sched():
     def __init__(self):
         self.db = ibrm_dbms.fbrm_db()
         self.cfg = self.get_cfg()
         self.job_prc = job_state.ibrm_job_stat()
-
+        self.ov_monitor = job_overtime_monitor.ov_mon()
 
     def already_past_job(self):
         dt = datetime.datetime.now() - datetime.timedelta(minutes=5)
@@ -118,6 +120,7 @@ WHERE
   ,tgrun.ora_home
   ,tgrun.db_name
   ,tgrun.job_id 
+  ,tgrun.alarm_tg
 FROM 
 (
   SELECT 
@@ -132,13 +135,10 @@ FROM
          TO_TIMESTAMP( tg.job_run_dt || tg.exec_time , 'YYYYMMDDHH24MI')  >= (  NOW() - INTERVAL '5 MINUTE'  )
         AND TO_TIMESTAMP( tg.job_run_dt || tg.exec_time , 'YYYYMMDDHH24MI')  <=   NOW()   
         AND tg.run_type ='RUN' AND tg.job_stat IS NULL
-        THEN 'RUN'     
-      WHEN 
-        tg.run_type ='RELEASE' AND tg.exec_time::TIME >= (NOW() - INTERVAL '5 MINUTE')::TIME  
-        AND tg.exec_time::TIME <= NOW()::TIME 
-        AND tg.job_stat IS NULL THEN 'RUN'
+        THEN 'RUN'
+      WHEN tg.run_type ='RELEASE' AND tg.job_stat IS NULL THEN 'RUN'
       WHEN tg.run_type IN ('RE-RUN') THEN 'RE-RUN'
-      WHEN tg.run_type IN ('PAUSE') AND mj.rel_exec_type = 'SCH' THEN  'PAUSE'    
+      WHEN tg.run_type IN ('PAUSE') THEN 'PAUSE'    
       ELSE 'N'      
      END AS target_yn        
     ,mj.timeout      
@@ -157,6 +157,7 @@ FROM
     ,mj.rel_exec_type
     ,mj.pre_job_id 
     ,mj.post_job_id 
+    ,mj.alarm_tg
   FROM 
     (
       SELECT
@@ -254,6 +255,7 @@ WHERE
             20	,tgrun.ora_home
             21	,tgrun.db_name
             22	,tgrun.job_id
+            23  ,tgrun.alarm_tg
 
             """
             job_info['tg_job_mst_id'] = job[0]
@@ -279,10 +281,10 @@ WHERE
             job_info['ora_home'] = job[20]
             job_info['db_name'] = job[21]
             job_info['job_id'] = job[22]
+            job_info['alarm_tg'] = job[23]
 
             job_list.append(job_info)
-        if len(job_list) >0 :
-            print sql
+
         return job_list
     def get_odate_1(self):
         try:
@@ -608,6 +610,10 @@ WHERE
         ex_bit = True
         job_id = job['job_id']
         return ex_bit
+
+    def set_start_job_alarm(self,job):
+        pass
+
     def main(self):
 
         job_list = self.get_job()
@@ -628,38 +634,32 @@ WHERE
             print job
             print job['job_id']
             print job['tg_job_dtl_id']
-
-            ex_bit = False
-            if job['run_type'] == 'RUN':
-                ex_bit = (job['exec_time'] == now_date) or (
+            ex_bit = (job['exec_time'] == now_date) or (
                         int(job['exec_time']) in range(int(limit_date), int(now_date)))
+
             print ex_bit
             if job['run_type'] in ['RE-RUN','RELEASE'] :
-                # 1> tg_job_dtl_log insert
                 ex_bit = True
+                # 1> tg_job_dtl_log insert
                 print job['job_id'],job['tg_job_dtl_id']
-
                 self.job_prc.set_tg_job_dtl_log(job['job_id'],job['tg_job_dtl_id'])
 
                 if job['run_type'] == 'RE-REUN':
-                    log.logdata('DAEMON', 'INFO', '60002', str(job['shell_name']))
-                    ex_bit=True
                     self.job_prc.set_hs_job_dtl_udt(job['job_id'],job['tg_job_dtl_id'])
                     # hs_job_dtl update (upd_stat = 'Y', use_yn= 'N')
 
             if job['run_type'] == 'PAUSE':
                 # ex_bit = self.get_pause_status(job)
                 # tg_job_dtl_log insert
-
-                self.job_prc.set_tg_job_dtl_log(job['job_id'],job['tg_job_dtl_id'])
+                if ex_bit:
+                    self.job_prc.set_tg_job_dtl_log(job['job_id'],job['tg_job_dtl_id'])
                     # tg_job_dtl_log insert
 
             if job['pre_job_id'] > 0:
                 print 'pre_job_id :',job['pre_job_id']
                 yyyymmdd = datetime.datetime.now().strftime('%Y%m%d')
-                odate=self.get_odate()
                 query = """SELECT job_stat, rm_bk_stat   FROM store.hs_job_dtl where  job_exec_dt = '{YYYYMMDD}' and job_id = '{PRE_JOB_ID}' """.format(
-                    YYYYMMDD=odate, PRE_JOB_ID=job['pre_job_id'])
+                    YYYYMMDD=yyyymmdd, PRE_JOB_ID=job['pre_job_id'])
                 print query
 
                 ret = self.db.getRaw(query)
@@ -668,15 +668,11 @@ WHERE
                     job_stat = ret_set[0]
                     rm_bk_stat = ret_set[1]
                     print 'ret_set :',ret_set
-                    if job['rel_exec_type'] == 'SCH':
-                        if not job_stat == 'End-OK':
-                            ex_bit = False
-                            self.job_prc.set_pause(job['job_id'])
-                        else:
-                            ex_bit = True
-                    else:
-                        print 'rel_exec_bit :',job['rel_exec_type']
+                    if not job_stat == 'End-OK':
                         ex_bit = False
+                        self.job_prc.set_pause(job['job_id'])
+                    else:
+                        ex_bit = True
                 else:
                     ex_bit = False
 
@@ -699,26 +695,32 @@ WHERE
                 print job
                 print submit_job_info
                 print job['run_type']
-                log.logdata('DAEMON', 'INFO', '60001', str(submit_job_info))
                 self.job_submit(submit_job_info)
+                try:
 
-
+                    self.job_submit(submit_job_info)
+                    s,e,t = self.ov_monitor.get_set_status(job['tg_job_dtl_id'])
+                    if s=='S':
+                        self.ov_monitor.evt_send(job['tg_job_dtl_id'])
+                except Exception as e:
+                    print str(e)
 
 if __name__ == '__main__':
     print 'iBRM Schduller START'
-    log.logdata('DAEMON', 'INFO', '70001', str(''))
     while True:
         print '=' * 50
         try:
             sched().main()
         except Exception as e:
-            log.logdata('DAEMON', 'ERROR', '70004', str(e))
             print str(e)
 
         print datetime.datetime.now()
         msg = "memory size :" + str(dict(psutil.virtual_memory()._asdict())['percent'])
         print msg
-
+        try:
+            log.info(msg)
+        except Exception as e:
+            print str(e)
         time.sleep(30)
 
     # sched().already_past_job()

@@ -938,37 +938,38 @@ SELECT job_id FROM store.hs_job_dtl hjd WHERE tg_job_dtl_id ='{}'))""".format(tg
             memo, now_str, tg_job_dtl_id)
         print query
         self.dbms.queryExec(query)
-        job_id_info = self.get_job_id(tg_job_dtl_id)
-        hs_job_dtl_id = job_id_info['hs_job_dtl_id']
-        hs_job_mst_id = job_id_info['hs_job_mst_id']
-        tg_job_mst_id = job_id_info['tg_job_mst_id']
-        query = "select hs_job_dtl_id from store.hs_job_dtl where job_id = '{JOB_ID}' and job_exec_dt = '{TODAY}'".format(
-            JOB_ID=job_id, TODAY=self.today_str)
-        print query
-        try:
-            ret_set = self.dbms.getRaw(query)
-        except:
-            pass
-
-        if len(ret_set) > 0:
-            hs_job_dtl_id = ret_set[0][0]
-            job_info = {}
-            job_info['hs_job_dtl_id'] = hs_job_dtl_id
-            job_info['hs_job_mst_id'] = hs_job_mst_id
-            job_info['rm_bk_stat'] = 'Fail'
-            # job_info['memo'] = 'This job is already running'
-            job_info['use_yn'] = 'Y'
-            job_info['pid'] = ''
-            job_info['mod_usr'] = 'SYS'
-            job_info['mod_dt'] = self.now_datetime
-            job_info['reg_usr'] = 'SYS'
-            job_info['reg_dt'] = self.now_datetime
-            job_info['adtnl_itm_1'] = ''
-            job_info['adtnl_itm_2'] = ''
-            job_info['memo'] = memo
-            job_info_list = [job_info]
-            table_name = 'store.hs_job_log'
-            self.dbms.dbInsertList(job_info_list, table_name)
+        # job_id_info = self.get_job_id(tg_job_dtl_id)
+        # hs_job_dtl_id = job_id_info['hs_job_dtl_id']
+        # hs_job_mst_id = job_id_info['hs_job_mst_id']
+        # tg_job_mst_id = job_id_info['tg_job_mst_id']
+        # query = "select hs_job_dtl_id from store.hs_job_dtl where job_id = '{JOB_ID}' and job_exec_dt = '{TODAY}'".format(
+        #     JOB_ID=job_id, TODAY=self.today_str)
+        # print query
+        # try:
+        #     ret_set = self.dbms.getRaw(query)
+        # except:
+        #     pass
+        # hs_job_dtl_id = ret_set[0][0]
+        #
+        # job_info = {}
+        # job_info['hs_job_dtl_id'] = hs_job_dtl_id
+        # job_info['hs_job_mst_id'] = hs_job_mst_id
+        # job_info['rm_bk_stat'] = 'Fail'
+        # # job_info['memo'] = 'This job is already running'
+        # job_info['use_yn'] = 'Y'
+        # job_info['pid'] = ''
+        # job_info['mod_usr'] = 'SYS'
+        # job_info['mod_dt'] = self.now_datetime
+        # job_info['reg_usr'] = 'SYS'
+        # job_info['reg_dt'] = self.now_datetime
+        # job_info['adtnl_itm_1'] = ''
+        # job_info['adtnl_itm_2'] = ''
+        # job_info['memo'] = memo
+        #
+        # job_info_list = [job_info]
+        # table_name = 'store.hs_job_log'
+        #
+        # self.dbms.dbInsertList(job_info_list, table_name)
 
     def job_fail_proc(self, job_id, memo):
         memo = memo.replace("'", "`")

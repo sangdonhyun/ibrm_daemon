@@ -11,7 +11,11 @@ class ag_check():
         self.rdb=ibrm_dbms.fbrm_db()
 
     def ag_list(self):
-        query="""SELECT ora_id,svr_id,ora_sid,db_name,svr_hostname,svr_ip_v4 FROM master.master_ora_info moi  WHERE main_flag='True';
+        query="""    SELECT * FROM (
+    SELECT ora_id,moi.svr_id,ora_sid,db_name,svr_hostname,svr_ip_v4,ma.agt_stat,ma.agt_id,main_flag FROM master.master_ora_info moi 
+    LEFT OUTER JOIN master.mst_agent ma ON moi.svr_id = ma.svr_id 
+    ) tg WHERE main_flag='True'
+;
         """
         print query
         ret=self.rdb.getRaw(query)
@@ -26,6 +30,8 @@ class ag_check():
                 db['db_name'] = db_info[3]
                 db['svr_hostname'] = db_info[4]
                 db['svr_ip_v4'] = db_info[5]
+                db['agt_stat'] = db_info[6]
+                db['agt_id'] = db_info[7]
 
                 ag_list.append(db)
 
@@ -93,13 +99,12 @@ class ag_check():
             evt_info['evt_code'] = 'AGT DOWN'
             evt_info['reg_dt'] = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
             evt_info_list = []
-            query="""SELECT count(*) FROM "event".evt_log el WHERE db_id={}
-and log_dt='{}' AND evt_dtl_type='AGT HLT'
-ORDER BY 1 desc""".format(evt['ora_id'],log_dt)
+            query="""SELECT count(*) FROM event.evt_log el WHERE db_id={} and log_dt='{}' AND evt_dtl_type='AGT HLT' ORDER BY 1 desc""".format(evt['ora_id'],log_dt)
             ret=self.rdb.getRaw(query)
             print ret,ret[0][0]
             if ret[0][0] == 0:
                 evt_info_list.append(evt_info)
+            evt_info_list.append(evt_info)
             # print 'evt_info :', evt_info
             table_name = 'event.evt_log'
             self.rdb.dbInsertList(evt_info_list, table_name)
@@ -117,33 +122,206 @@ ORDER BY 1 desc""".format(evt['ora_id'],log_dt)
             print str(e)
             scan_bit = False
 
+    def update_agent_status(self,ag):
+        """
+        agt_id
+        svr_id
+        agt_ver
+        agt_fname
+        agt_path
+        patch_dt
+        agt_stat
+        adtnl_itm_1
+        adtnl_itm_2
+        descr
+        use_yn
+        mod_usr
+        mod_dt
+        reg_usr
+        reg_dt
+        :param ag:
+        :return:
+        """
+
+        cnt_query =""" select * from master.mst_agent where svr_id = '{}'
+        """.format(ag['svr_id'])
+        print cnt_query
+        ret = self.rdb.getRaw(cnt_query)
+        print ret
+        if len(ret) == 0:
+            query="""INSERT INTO master.mst_agent
+        (
+        svr_id, 
+        agt_ver, 
+        agt_fname, 
+        agt_path, 
+        patch_dt, 
+        agt_stat, 
+        adtnl_itm_1, 
+        adtnl_itm_2, 
+        descr, 
+        use_yn, 
+        mod_usr, 
+        mod_dt, 
+        reg_usr, 
+        reg_dt)
+        VALUES(
+        {AGT_ID},
+        {SVR_ID}, 
+        '{IBRM_AGENT_VERSION}', 
+        '{IBRM_PATH}',
+        '',  
+        '{IBRM_AGENT_PATCH_DT}', 
+        '{CHECKING}', 
+        '', 
+        '', 
+        '', 
+        'Y', 
+        'SYS', 
+        to_char(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS'::text), 
+        'SYS', 
+        to_char(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS'::text));
+            """.format(
+
+                SVR_ID=ag['svr_id'],
+                IBRM_AGENT_VERSION=ag['IBRM_AGENT_VERSION'],
+                IBRM_PATH=ag['IBRM_PATH'],
+                IBRM_AGENT_PATCH_DT=ag['IBRM_AGENT_PATCH_DT'],
+                CHECKING=ag['CHECKING'],
+            )
+
+        else:
+            print 'ag :',ag
+            query="""
+            UPDATE master.mst_agent
+            SET 
+                agt_ver='{IBRM_AGENT_VERSION}', 
+                agt_path='{IBRM_PATH}', 
+                patch_dt='{IBRM_AGENT_PATCH_DT}', 
+                agt_stat='{CHECKING}', 
+                reg_dt=to_char(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS'::text)
+            WHERE svr_id='{SVR_ID}'
+
+            """.format(
+                SVR_ID=ag['svr_id'],
+                IBRM_AGENT_VERSION=ag['IBRM_AGENT_VERSION'],
+                IBRM_PATH=ag['IBRM_PATH'],
+                IBRM_AGENT_PATCH_DT=ag['IBRM_AGENT_PATCH_DT'],
+                CHECKING=ag['CHECKING']
+            )
+        try:
+            print query
+            self.rdb.queryExec(query)
+
+
+        except Exception as e:
+            print str(e)
+
+        print ag
+
+    def set_agt_hist(self,ag):
+        """
+        ag['CHECKING'] = info['ARG']['CHECKING']
+            ag['IBRM_AGENT_VERSION'] = info['ARG']['IBRM_AGENT_VERSION']
+            ag['IBRM_PATH'] = info['ARG']['IBRM_PATH']
+            ag['IBRM_AGENT_PATCH_DT'] =info['ARG']['IBRM_AGENT_PATCH_DT']
+            ag['AG_STATUS'] = ag_status
+        :param ag:
+        :return:
+        """
+        print ag
+        query="""
+        INSERT INTO master.mst_agent_hist (
+            agt_id,
+            svr_id, 
+            agt_ver, 
+            agt_path,
+            agt_fname, 
+            patch_dt, 
+            agt_pre_stat, 
+            agt_stat, 
+            use_yn, 
+            mod_usr, 
+            mod_dt, 
+            reg_usr, 
+            reg_dt)
+        VALUES(
+            '{AGT_ID}',
+            '{SVR_ID}',  
+            '{IBRM_AGENT_VERSION}', 
+            '{IBRM_PATH}', 
+            '',
+            '{IBRM_AGENT_PATCH_DT}',
+            '{AG_STATUS}', 
+            '{CHECKING}', 
+            'Y', 
+            'SYS', 
+            to_char(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS'::text), 
+            'SYS', 
+            to_char(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MISS'::text));
+            """.format(
+            AGT_ID=ag['agt_id'],
+            SVR_ID=ag['svr_id'],
+            IBRM_AGENT_VERSION=ag['IBRM_AGENT_VERSION'],
+            IBRM_PATH=ag['IBRM_PATH'],
+            IBRM_AGENT_PATCH_DT=ag['IBRM_AGENT_PATCH_DT'],
+            AG_STATUS=ag['agt_stat'],
+            CHECKING=ag['CHECKING']
+            )
+
+        try:
+            print query
+            self.rdb.queryExec(query)
+        except Exception as e:
+            print str(e)
 
     def main(self):
         ag_list=self.ag_list()
         for ag in ag_list:
-
+            print ag
             HOST= ag['svr_ip_v4']
             # HOST= '121.170.193.222'
             PORT = 53001
             print self.port_scan(HOST,PORT)
-            try:
-                ss=ibrm_daemon_send.SocketSender(HOST,PORT)
-                ret = ss.ag_health_check()
-                info = ast.literal_eval(ret)
-                # print ret
-                # print info['AGR']['CHECKING']
-                print '-'*30
-                print info
-                print type(info)
-                print info.keys()
-                ag_status= info['ARG']['CHECKING']
-                # ag_status ='Not OK'
-                print ag_status
-                if not ag_status == 'OK':
-                    self.evt_ins(ag)
-                print '-' * 30
-            except:
+            # try:
+            ss=ibrm_daemon_send.SocketSender(HOST,PORT)
+            ret = ss.ag_health_check()
+
+            info = ast.literal_eval(ret)
+
+
+            # print ret
+            # print info['AGR']['CHECKING']
+            print '-'*30
+            print info
+            print type(info)
+            print info.keys()
+            checking= info['ARG']['CHECKING']
+            version = info['ARG']['IBRM_AGENT_VERSION']
+            ibrm_path = info['ARG']['IBRM_PATH']
+            ag['CHECKING'] = info['ARG']['CHECKING']
+            ag['IBRM_AGENT_VERSION'] = info['ARG']['IBRM_AGENT_VERSION']
+            ag['IBRM_PATH'] = info['ARG']['IBRM_PATH']
+            ag['IBRM_AGENT_PATCH_DT'] =info['ARG']['IBRM_AGENT_PATCH_DT']
+
+            # ag_status ='Not OK'
+            print 'agt_stat :',ag['agt_stat']
+            if not checking == 'OK':
                 self.evt_ins(ag)
+            print '-'*50
+            print ag['CHECKING'],ag['agt_stat'],checking == ag['agt_stat']
+            if not checking == ag['agt_stat']:
+                self.set_agt_hist(ag)
+            print '-' * 30
+            print 'ag :',ag
+            self.update_agent_status(ag)
+            # except:
+            #     ag['CHECKING'] = 'NOK'
+            #     ag['IBRM_AGENT_VERSION'] = 'unkown'
+            #     ag['IBRM_PATH'] = 'unkown'
+            #     ag['IBRM_AGENT_PATCH_DT'] = 'unkown'
+                # self.evt_ins(ag)
+                # self.update_agent_status(ag)
 
 
 

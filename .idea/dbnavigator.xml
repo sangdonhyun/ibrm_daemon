@@ -23,19 +23,7 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="false" />
-    <loaded-nodes>
-      <connection connection-id="ac84f890-7656-4c70-a487-2ace7d6c647a">
-        <schema name="PUBLIC" object-types="package, table, materialized view, sequence, type, synonym, view, function" />
-        <schema name="SYS" object-types="package, package function, type function, table, materialized view, sequence, type, synonym, column, package type, view, function" />
-      </connection>
-      <connection connection-id="13d16f2f-7e1f-459c-a2a7-fc9af8c663db">
-        <schema name="master" object-types="view, table" />
-        <schema name="pg_catalog" object-types="function" />
-        <schema name="public" object-types="function" />
-        <schema name="ref" object-types="function" />
-        <schema name="store" object-types="view, table" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ac84f890-7656-4c70-a487-2ace7d6c647a">
@@ -198,6 +186,9 @@ FROM V_$RMAN_BACKUP_JOB_DETAILS;
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
   </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
     <execution-history>
@@ -215,8 +206,8 @@ FROM V_$RMAN_BACKUP_JOB_DETAILS;
   </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
     <recently-used-interfaces>
-      <mapping database-type="ORACLE" interface-id="DEFAULT" />
       <mapping database-type="POSTGRES" interface-id="DEFAULT" />
+      <mapping database-type="ORACLE" interface-id="DEFAULT" />
     </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
@@ -267,6 +258,7 @@ FROM V_$RMAN_BACKUP_JOB_DETAILS;
           <restore-workspace value="true" />
           <restore-workspace-deep value="true" />
           <environment-type value="default" />
+          <connectivity-timeout value="5" />
           <idle-time-to-disconnect value="30" />
           <idle-time-to-disconnect-pool value="5" />
           <credential-expiry-time value="10" />
@@ -350,6 +342,7 @@ FROM V_$RMAN_BACKUP_JOB_DETAILS;
           <restore-workspace value="true" />
           <restore-workspace-deep value="true" />
           <environment-type value="default" />
+          <connectivity-timeout value="5" />
           <idle-time-to-disconnect value="30" />
           <idle-time-to-disconnect-pool value="5" />
           <credential-expiry-time value="10" />
