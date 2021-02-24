@@ -701,7 +701,7 @@ WHERE
                     self.job_submit(submit_job_info)
                     s,e,t = self.ov_monitor.get_set_status(job['tg_job_dtl_id'])
                     if s=='S':
-                        self.ov_monitor.evt_send(job['tg_job_dtl_id'])
+                        self.ov_monitor.evt_send(job['tg_job_dtl_id'],'s')
                 except Exception as e:
                     print str(e)
 

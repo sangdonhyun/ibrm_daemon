@@ -8,12 +8,14 @@ import ConfigParser
 import ibrm_daemon_send
 import re
 import logging
-
+import job_overtime_monitor
 
 class ibrm_job_stat():
     def __init__(self):
         self.dbms = ibrm_dbms.fbrm_db()
         self.cfg = self.get_cfg()
+        self.ov_monitor = job_overtime_monitor.ov_mon()
+
         # self.log = ibrm_logger.ibrm_logger().logger('ibrm_server_job_status')
 
     def get_cfg(self):
@@ -216,6 +218,9 @@ class ibrm_job_stat():
             self.evt_ins(job_status)
         if job_status['job_st'] == 'End-OK':
             job_info = self.post_job(job_status['job_id'], job_status['tg_job_dtl_id'])
+            s,e,t=self.ov_monitor.get_set_status(tg_job_dtl_id)
+            if e=='E':
+                self.ov_monitor.evt_send(tg_job_dtl_id,'e')
             print job_info
             if not job_info == None:
                 if job_info['rel_exec_type'] == 'INST':

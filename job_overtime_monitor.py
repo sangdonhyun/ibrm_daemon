@@ -32,7 +32,7 @@ class ov_mon():
     def evt_send(self,tg_job_dtl_id):
         query="""
         SELECT 
-         hs_job_dtl_id,hs_job_mst_id, tg_job_mst_id ,tg_job_dtl_id ,hjd.job_id,job_exec_dt ,job_stat ,timeout,mj.work_div_1,ms.sh_id,ms.svr_id,ms.db_id,sh_file_nm,db_nm ,job_stt_dt,mj.alarm_tg,hjd.reg_dt 
+         hs_job_dtl_id,hs_job_mst_id, tg_job_mst_id ,tg_job_dtl_id ,hjd.job_id,job_exec_dt ,job_stat ,timeout,mj.work_div_1,ms.sh_id,ms.svr_id,ms.db_id,sh_file_nm,db_nm ,job_stt_dt,mj.alarm_tg,hjd.reg_dt,hjd.mod_dt 
         FROM store.hs_job_dtl hjd 
         LEFT OUTER JOIN master.mst_job mj
         ON hjd.job_id = mj.job_id 
@@ -43,7 +43,7 @@ class ov_mon():
         try:
             job_info={}
             ret=self.rdb.get_row(query)[0]
-            titles = "hs_job_dtl_id,hs_job_mst_id, tg_job_mst_id ,tg_job_dtl_id ,job_id,job_exec_dt ,job_stat ,timeout,work_div_1,sh_id,svr_id,ms.db_id,sh_file_nm,db_nm ,job_stt_dt,alarm_tg,reg_dt".split(',')
+            titles = "hs_job_dtl_id,hs_job_mst_id, tg_job_mst_id ,tg_job_dtl_id ,job_id,job_exec_dt ,job_stat ,timeout,work_div_1,sh_id,svr_id,ms.db_id,sh_file_nm,db_nm ,job_stt_dt,alarm_tg,reg_dt,mod_dt".split(',')
             for i in range(len(titles)):
                 job_info[titles[i].strip()] = ret[i]
             print job_info
@@ -56,7 +56,7 @@ class ov_mon():
         query=""" 
 
             SELECT 
-         hs_job_dtl_id,hs_job_mst_id, tg_job_mst_id ,tg_job_dtl_id ,hjd.job_id,job_exec_dt ,job_stat ,timeout,mj.work_div_1,ms.sh_id,ms.svr_id,ms.db_id,sh_file_nm,db_nm ,job_stt_dt,mj.alarm_tg,hjd.reg_dt 
+         hs_job_dtl_id,hs_job_mst_id, tg_job_mst_id ,tg_job_dtl_id ,hjd.job_id,job_exec_dt ,job_stat ,timeout,mj.work_div_1,ms.sh_id,ms.svr_id,ms.db_id,sh_file_nm,db_nm ,job_stt_dt,mj.alarm_tg,hjd.reg_dt,hjd.mod_dt 
         FROM store.hs_job_dtl hjd 
         LEFT OUTER JOIN master.mst_job mj
         ON hjd.job_id = mj.job_id 
@@ -77,7 +77,7 @@ class ov_mon():
         """
         hs_job_dtl_id,hs_job_mst_id,tg_job_mst_id ,tg_job_dtl_id ,job_id,job_exec_dt ,job_stat,use_yn ,timeout,work_div_1,work_div_1,sh_id,svr_id,db_id,sh_file_nm,db_nm        
         """
-        titles = "hs_job_dtl_id,hs_job_mst_id, tg_job_mst_id ,tg_job_dtl_id ,job_id,job_exec_dt ,job_stat ,timeout,work_div_1,sh_id,svr_id,ms.db_id,sh_file_nm,db_nm ,job_stt_dt,alarm_tg,reg_dt".split(',')
+        titles = "hs_job_dtl_id,hs_job_mst_id, tg_job_mst_id ,tg_job_dtl_id ,job_id,job_exec_dt ,job_stat ,timeout,work_div_1,sh_id,svr_id,ms.db_id,sh_file_nm,db_nm ,job_stt_dt,alarm_tg,reg_dt,mod_dt".split(',')
 
 
 
@@ -109,14 +109,14 @@ class ov_mon():
                 if t =='T':
                     if not timeout == '0':
                         if now > ov_dt:
-                            self.set_event(job_info)
+                            self.set_event(job_info,'t')
 
 
 
 
 
 
-    def set_event(self,job_info):
+    def set_event(self,job_info,tg='t'):
         evt_info = {}
 
         print job_info.keys()
@@ -133,8 +133,12 @@ class ov_mon():
         evt_info['evt_code'] = 'JOB_RUN_OVERTIME'
         evt_info['evt_dtl_type'] = ''
         evt_info['evt_lvl'] = 'WARNNING'  # ERROR/CRITICAL/INFO
-        evt_info['evt_msg'] = 'DB ({}) FILE ({})  LIMIT ORVER  JOB START TIME :{}  ,OVER TIME {} '.format(job_info['db_nm'],job_info['sh_file_nm'],job_info['reg_dt'],job_info['timeout'])
-
+        if tg=='t':
+            evt_info['evt_msg'] = 'DB ({}) FILE ({})  LIMIT ORVER TIME EVENT  JOB START TIME :{}  ,OVER TIME {} '.format(job_info['db_nm'],job_info['sh_file_nm'],job_info['reg_dt'],job_info['timeout'])
+        elif tg=='s':
+            evt_info['evt_msg'] = 'DB ({}) FILE ({})  JOB START EVENT   JOB START TIME :{}  '.format(job_info['db_nm'], job_info['sh_file_nm'], job_info['reg_dt'])
+        elif tg=='e':
+            evt_info['evt_msg'] = 'DB ({}) FILE ({})  JOB END EVENT   JOB END TIME :{}'.format(job_info['db_nm'],job_info['sh_file_nm'],job_info['mod_dt'])
         # evt_info['evt_cntn'] = '{WORK_DIV_1} {WORK_DIV_2} {JOB_NM} {SH_NM} {SVR_NM} {DB_NM}'.format(
         #     WORK_DIV_1=work_div_1, WORK_DIV_2=work_div_2, JOB_NM=job_nm, SH_NM=sh_nm, SVR_NM=svr_nm, DB_NM=db_nm)
         evt_info['dev_type'] = 'DB'
