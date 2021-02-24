@@ -54,10 +54,15 @@ class TCPConnectionHandler(SocketServer.BaseRequestHandler):
         cfg.read(cfgFile)
         return cfg
     def get_job_already_run(self,job_status):
+        print 'job_status :',job_status
         job_id = job_status['job_id']
         memo = job_status['memo']
         tg_job_dtl_id = job_status['tg_job_dtl_id']
-        log.LogControl().logdata('DAEMON', 'INFO', '60005', str(job_status))
+        try:
+            log.logdata('DAEMON', 'ERROR', '60005', str(job_status))
+        except Exception as e:
+            print str(e)
+
         job_state.ibrm_job_stat().job_aleady_exist(job_id,tg_job_dtl_id,memo)
 
         job_state.ibrm_job_stat().evt_ins(job_status)
@@ -237,8 +242,9 @@ class TCPConnectionHandler(SocketServer.BaseRequestHandler):
 
                     ret_args = info['ARG']
                     if data is not None:
-                        print 'ret_args : ',ret_args
+                        print 'JOB_ALREADY_RUN ret_args : ',ret_args
                         self.get_job_already_run(ret_args)
+                        print '#'*40
                         self.request.send(str(ret_args))
 
 

@@ -59,7 +59,6 @@ class LogControl(object):
         fp.write(comment)
         fp.close()
 
-
 if __name__=='__main__':
     job_status = {'memo': 'this job (test.sh)  is already running', 'job_id': 157, 'tg_job_dtl_id': 208452}
     LogControl().logdata('DAEMON', 'ERROR', '60005', str(job_status))
