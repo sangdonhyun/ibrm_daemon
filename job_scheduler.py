@@ -696,32 +696,31 @@ WHERE
                 print submit_job_info
                 print job['run_type']
                 self.job_submit(submit_job_info)
-                try:
+                self.job_submit(submit_job_info)
+                s,e,t = self.ov_monitor.get_set_status(job['tg_job_dtl_id'])
+                print 'ov_monitor :',s,e,t
 
-                    self.job_submit(submit_job_info)
-                    s,e,t = self.ov_monitor.get_set_status(job['tg_job_dtl_id'])
-                    if s=='S':
-                        self.ov_monitor.evt_send(job['tg_job_dtl_id'],'s')
-                except Exception as e:
-                    print str(e)
+                if s=='S':
+                    self.ov_monitor.evt_send(job['tg_job_dtl_id'],s)
+
 
 if __name__ == '__main__':
     print 'iBRM Schduller START'
     while True:
-        print '=' * 50
-        try:
-            sched().main()
-        except Exception as e:
-            print str(e)
+        # print '=' * 50
+        # try:
+        sched().main()
+        # except Exception as e:
+        #     print str(e)
 
-        print datetime.datetime.now()
-        msg = "memory size :" + str(dict(psutil.virtual_memory()._asdict())['percent'])
-        print msg
-        try:
-            log.info(msg)
-        except Exception as e:
-            print str(e)
-        time.sleep(30)
+        # print datetime.datetime.now()
+        # msg = "memory size :" + str(dict(psutil.virtual_memory()._asdict())['percent'])
+        # print msg
+        # try:
+        #     log.info(msg)
+        # except Exception as e:
+        #     print str(e)
+        time.sleep(3)
 
     # sched().already_past_job()
 
