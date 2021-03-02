@@ -14,7 +14,7 @@ class ag_check():
         query="""    SELECT * FROM (
     SELECT ora_id,moi.svr_id,ora_sid,db_name,svr_hostname,svr_ip_v4,ma.agt_stat,ma.agt_id,main_flag FROM master.master_ora_info moi 
     LEFT OUTER JOIN master.mst_agent ma ON moi.svr_id = ma.svr_id 
-    ) tg WHERE main_flag='True'
+    ) tg WHERE main_flag='T'
 ;
         """
         print query
@@ -269,11 +269,9 @@ class ag_check():
             CHECKING=ag['CHECKING']
             )
 
-        try:
-            print query
-            self.rdb.queryExec(query)
-        except Exception as e:
-            print str(e)
+
+        print query
+        self.rdb.queryExec(query)
 
     def main(self):
         ag_list=self.ag_list()
@@ -286,11 +284,13 @@ class ag_check():
             # try:
             ss=ibrm_daemon_send.SocketSender(HOST,PORT)
             ret = ss.ag_health_check()
+            try:
+                info = ast.literal_eval(ret)
+            except:
+                checking = 'NOK'
 
-            info = ast.literal_eval(ret)
 
-
-            # print ret
+            print ret
             # print info['AGR']['CHECKING']
             print '-'*30
             print info
@@ -310,6 +310,10 @@ class ag_check():
                 self.evt_ins(ag)
             print '-'*50
             print ag['CHECKING'],ag['agt_stat'],checking == ag['agt_stat']
+            """
+            agent status OK -> NOK
+            agent status NOK -> OK
+            """
             if not checking == ag['agt_stat']:
                 self.set_agt_hist(ag)
             print '-' * 30
